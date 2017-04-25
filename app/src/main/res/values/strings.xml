@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Buttom Nav</string>
+
+    <string name="text_timeline">Timeline Fragment</string>
+    <string name="text_social">Social Fragment</string>
+    <string name="text_ranking">Ranking Fragment</string>
+
+    <string name="menu_timeline">Timeline</string>
+    <string name="menu_ranking">Rankings</string>
+    <string name="menu_social">Soziale Netzwerke</string>
+</resources>
