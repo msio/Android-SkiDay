@@ -40,21 +40,6 @@ public class MainActivity extends AppCompatActivity {
             selectedItem = mBottomNav.getMenu().getItem(0);
         }
         selectFragment(selectedItem);
-
-        TabHost host = (TabHost)findViewById(R.id.tabhost);
-        host.setup();
-
-        //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("Tab One");
-        spec.setContent(R.id.tab1);
-        spec.setIndicator("Meine Events");
-        host.addTab(spec);
-
-        //Tab 2
-        spec = host.newTabSpec("Tab Two");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("Veranstalter");
-        host.addTab(spec);
     }
 
     @Override
@@ -76,22 +61,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectFragment(MenuItem item) {
         Fragment frag = null;
-        /*
+
         // init corresponding fragment
+
         switch (item.getItemId()) {
             case R.id.menu_timeline:
-                frag = MenuFragment.newInstance(getString(R.string.text_timeline),
-                        getColorFromRes(R.color.color_timeline));
+                frag = TimelineFragment.newInstance();
                 break;
             case R.id.menu_ranking:
-                frag = MenuFragment.newInstance(getString(R.string.text_ranking),
-                        getColorFromRes(R.color.color_ranking));
+                frag = TimelineFragment.newInstance();
                 break;
             case R.id.menu_social:
-                frag = MenuFragment.newInstance(getString(R.string.text_social),
-                        getColorFromRes(R.color.color_social));
+                frag = TimelineFragment.newInstance();
                 break;
-        }   */
+        }
 
         // update selected item
         mSelectedItem = item.getItemId();
@@ -106,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (frag != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.container, frag, frag.getTag());
+            ft.replace(R.id.container, frag, frag.getTag());
             ft.commit();
         }
     }
