@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SimpleSocialCardView">
+        <attr name="facebookLikes" format="integer" />
+        <attr name="twitterLikes" format="integer" />
+        <attr name="numberOfComments" format="integer" />
+        <attr name="timestamp" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="SocialImageCardView">
+        <attr name="instagramLikes" format="integer" />
+        <attr name="imageReference" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SocialTextCardView">
+        <attr name="textPost" format="string" />
+    </declare-styleable>
+</resources>
