@@ -28,34 +28,28 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:id="@+id/tab1"
+                    android:id="@+id/tab_myEvents"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#FFF"
-                        android:clipToPadding="false"
-                        android:paddingTop="@dimen/dayHeight">
-
-                        <com.framgia.library.calendardayview.CalendarDayView
-                            android:id="@+id/calendar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:dayHeight="@dimen/dayHeight"
-                            app:eventMarginLeft="0dp" />
-
-                    </ScrollView>
+                    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/timeline_myEvents"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab2"
+                    android:id="@+id/tab_eventCreator"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/timeline_eventCreator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
