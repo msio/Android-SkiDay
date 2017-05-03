@@ -14,7 +14,7 @@
         android:layout_marginTop="20sp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/profile_image"
             android:layout_width="104dp"
             android:layout_height="110dp"
             app:srcCompat="@mipmap/hirscher"
@@ -36,7 +36,7 @@
         android:id="@+id/lap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1. Durchgang Startnummer 8"
+        android:text="1. Lap Startnumber 8"
         android:height="30sp"
         android:layout_marginTop="20sp"/>
 
