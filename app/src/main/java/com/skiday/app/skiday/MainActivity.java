@@ -8,12 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.skiday.app.skiday.feedback.FeedbackFragment;
 import com.skiday.app.skiday.ranking.RankingFragment;
+import com.skiday.app.skiday.settings.SettingsFragment;
 import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
 
@@ -25,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -52,12 +58,16 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menu_feedback:
                     selectedFragment = FeedbackFragment.newInstance();
             }
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content, selectedFragment);
-            transaction.commit();
+            loadFragment(selectedFragment);
             return true;
         }
     };
+
+    private void loadFragment(Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, fragment);
+        transaction.commit();
+    }
 
     public void feedbackButtonOnClick(View view){
         String url;
@@ -78,5 +88,23 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.logout_button:
+                break;
+            case R.id.settings_button:
+                loadFragment(new SettingsFragment());
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
