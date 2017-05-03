@@ -2,8 +2,6 @@ package com.skiday.app.skiday.timeline;
 
 import android.support.annotation.NonNull;
 
-import com.framgia.library.calendardayview.data.IEvent;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
