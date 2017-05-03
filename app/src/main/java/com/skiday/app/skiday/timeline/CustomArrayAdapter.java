@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
+import com.skiday.app.skiday.constants.Constants;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -66,7 +67,7 @@ public class CustomArrayAdapter extends ArrayAdapter<Event> {
         } else {
             desc.setText(currentEvent.getDesc());
         }
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("HH:mm");
+        DateTimeFormatter fmt = DateTimeFormat.forPattern(Constants.TIME_FORMAT);
         time.setText(fmt.print(currentEvent.getStartTime()) + " - " + fmt.print(currentEvent.getEndTime()));
         return rowView;
     }

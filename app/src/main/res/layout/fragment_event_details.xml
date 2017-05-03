@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textColor="@color/colorDetailsLabel"
+        android:textSize="@dimen/details_label_text_size" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDetailsValue"
+        android:textSize="@dimen/details_value_text_size" />
+
+    <TextView
+        android:id="@+id/roundLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Round"
+        android:textColor="@color/colorDetailsLabel"
+        android:textSize="@dimen/details_label_text_size" />
+
+    <TextView
+        android:id="@+id/round"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDetailsValue"
+        android:textSize="@dimen/details_value_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/details_margin_top"
+        android:text="Start Time"
+        android:textColor="@color/colorDetailsLabel"
+        android:textSize="@dimen/details_label_text_size" />
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDetailsValue"
+        android:textSize="@dimen/details_value_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/details_margin_top"
+        android:text="End Time"
+        android:textColor="@color/colorDetailsLabel"
+        android:textSize="@dimen/details_label_text_size" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDetailsValue"
+        android:textSize="@dimen/details_value_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/details_margin_top"
+        android:text="Location"
+        android:textColor="@color/colorDetailsLabel"
+        android:textSize="@dimen/details_label_text_size" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDetailsValue"
+        android:textSize="@dimen/details_value_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/details_margin_top"
+        android:text="Note"
+        android:textColor="@color/colorDetailsLabel"
+        android:textSize="@dimen/details_label_text_size" />
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorDetailsValue"
+        android:textSize="@dimen/details_value_text_size" />
+
+</LinearLayout>

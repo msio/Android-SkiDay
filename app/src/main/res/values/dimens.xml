@@ -51,7 +51,8 @@
     <dimen name="my_schedule_title_strip_padding">8dp</dimen>
     <dimen name="my_schedule_page_margin">@dimen/padding_normal</dimen>
     <dimen name="my_schedule_icon_size">24dp</dimen>
-    <dimen name="my_schedule_icon_horizontal_padding">24dp</dimen> <!-- center 24dp in @keyline_2 -->
+    <dimen name="my_schedule_icon_horizontal_padding">24dp
+    </dimen> <!-- center 24dp in @keyline_2 -->
     <dimen name="widget_schedule_time_width">72dp</dimen>
     <dimen name="widget_schedule_header_height">40dp</dimen>
     <dimen name="drawer_width">@dimen/match_parent</dimen>
@@ -209,10 +210,17 @@
     <!-- Welcome Activity -->
     <dimen name="welcome_logo_top_spacing">48dp</dimen>
     <dimen name="welcome_logo_height">112dp</dimen>
-    <dimen name="welcome_content_padding_top">200dp</dimen> <!-- welcome_logo_top_spacing + welcome_logo_height + 40dp (logo bottom spacing) -->
+    <dimen name="welcome_content_padding_top">200dp
+    </dimen> <!-- welcome_logo_top_spacing + welcome_logo_height + 40dp (logo bottom spacing) -->
     <dimen name="welcome_content_padding">@dimen/padding_normal</dimen>
     <dimen name="welcome_button_bar_elevation">6dp</dimen>
     <dimen name="welcome_content_width">@dimen/match_parent</dimen>
     <dimen name="welcome_title_size">20sp</dimen>
+
+
+    <dimen name="details_label_text_size">16sp</dimen>
+    <dimen name="details_value_text_size">20sp</dimen>
+    <dimen name="details_margin_top">10dp</dimen>
+
 
 </resources>

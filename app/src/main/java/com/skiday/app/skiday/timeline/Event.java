@@ -5,13 +5,14 @@ import android.support.annotation.NonNull;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by msio on 4/24/17.
  */
 
-public class Event implements Comparable<Event>{
+public class Event implements Comparable<Event>,Serializable{
 
     private DateTime startTime;
     private DateTime endTime;

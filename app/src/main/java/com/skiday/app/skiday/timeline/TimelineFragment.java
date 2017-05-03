@@ -1,13 +1,9 @@
 package com.skiday.app.skiday.timeline;
 
-import android.app.TabActivity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 import com.skiday.app.skiday.R;
-
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Created by msio on 4/27/17.
@@ -36,7 +23,7 @@ public class TimelineFragment extends Fragment {
     Context context;
     TabHost host;
 
-    public TimelineFragment(){
+    public TimelineFragment() {
         setArguments(new Bundle());
     }
 
@@ -60,7 +47,7 @@ public class TimelineFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
         final ListView listViewMyEvents = (ListView) view.findViewById(R.id.timeline_myEvents);
         final ListView listViewEventCreator = (ListView) view.findViewById(R.id.timeline_eventCreator);
 
@@ -84,30 +71,39 @@ public class TimelineFragment extends Fragment {
         host.addTab(spec);
 
         final CustomArrayAdapter adapter1 = new CustomArrayAdapter(context, EventsData.generateEventCreatorEvents(), EventTab.EVENT_CREATOR);
-        listViewEventCreator.setAdapter(adapter1);
         listViewEventCreator.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                System.out.println();
-                getArguments().putInt("tabHost",host.getCurrentTab());
-                System.out.println("CURRENT "+host.getCurrentTab());
-                /*Intent INT = new Intent(getActivity(), EventDetails.class);
-                INT.putExtra("hi", "HI");
-                startActivityForResult(INT,host.getCurrentTab());*/
 
-                Fragment eventDetails = new EventDetails();
+                Fragment fragment = EventDetailsFragment.newInstance();
+                Bundle data = new Bundle();
+                data.putSerializable("selected",(Event) parent.getAdapter().getItem(position));
+                fragment.setArguments(data);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // For a little polish, specify a transition animation
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                // To make it fullscreen, use the 'content' root view as the container
-                // for the fragment, which is always the root view for the activity
-                transaction.add(android.R.id.content, eventDetails)
-                        .addToBackStack(null).commit();
+                transaction.replace(R.id.content, fragment)
+                        .addToBackStack("eventDetail").commit();
             }
         });
+        listViewEventCreator.setAdapter(adapter1);
 
         final CustomArrayAdapter adapter2 = new CustomArrayAdapter(context, EventsData.generateMyEvents(), EventTab.MY_EVENT);
+        listViewMyEvents.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Fragment fragment = EventDetailsFragment.newInstance();
+                Bundle data = new Bundle();
+                data.putSerializable("selected",(Event) parent.getAdapter().getItem(position));
+                fragment.setArguments(data);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.replace(R.id.content, fragment)
+                        .addToBackStack("eventDetail").commit();
+            }
+        });
         listViewMyEvents.setAdapter(adapter2);
 
     }
