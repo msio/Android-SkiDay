@@ -15,10 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.skiday.app.skiday.feedback.FeedbackFragment;
+import com.skiday.app.skiday.login.LoginActivity;
 import com.skiday.app.skiday.ranking.RankingFragment;
 import com.skiday.app.skiday.settings.SettingsFragment;
 import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.logout_button:
+
+                Intent Intent = new Intent(this, LoginActivity.class);
+                startActivity(Intent);
                 break;
             case R.id.settings_button:
                 loadFragment(new SettingsFragment());
