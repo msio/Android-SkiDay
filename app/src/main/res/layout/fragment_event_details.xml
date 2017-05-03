@@ -88,11 +88,5 @@
         android:textColor="@color/colorDetailsLabel"
         android:textSize="@dimen/details_label_text_size" />
 
-    <TextView
-        android:id="@+id/note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorDetailsValue"
-        android:textSize="@dimen/details_value_text_size" />
 
 </LinearLayout>

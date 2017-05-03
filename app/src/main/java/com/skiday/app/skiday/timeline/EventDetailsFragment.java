@@ -4,6 +4,7 @@ package com.skiday.app.skiday.timeline;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,11 @@ public class EventDetailsFragment extends Fragment {
     }
 
     @Override
+    public void onCreate (Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_event_details, container, false);
@@ -39,10 +45,8 @@ public class EventDetailsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Event data = (Event) getArguments().getSerializable("selected");
-
         TextView desc = (TextView) view.findViewById(R.id.description);
         desc.setText(data.getDesc());
-
         TextView roundLabel = (TextView) view.findViewById(R.id.roundLabel);
         TextView round = (TextView) view.findViewById(R.id.round);
 
