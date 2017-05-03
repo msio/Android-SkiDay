@@ -55,6 +55,7 @@
 
                     android:drawableLeft="@drawable/facebook_icon"
 
+                    android:onClick="feedbackButtonOnClick"
                     android:text="420 Likes" />
 
                 <Button
@@ -66,6 +67,7 @@
                     android:background="#00FFFFFF"
                     android:drawableLeft="@drawable/instagram_icon"
 
+                    android:onClick="feedbackButtonOnClick"
                     android:text="69 Likes" />
             </TableRow>
 
@@ -85,6 +87,7 @@
 
                     android:drawableLeft="@drawable/twitter_icon"
 
+                    android:onClick="feedbackButtonOnClick"
                     android:text="100 Retweets" />
 
                 <Button
@@ -95,6 +98,8 @@
 
                     android:background="#00FFFFFF"
                     android:drawableLeft="@drawable/comments_icon"
+
+                    android:onClick="feedbackButtonOnClick"
 
                     android:text="300 Comments" />
             </TableRow>
