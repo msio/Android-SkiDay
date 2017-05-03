@@ -17,7 +17,6 @@
             android:layout_height="150dp"
 
             android:scaleType="centerCrop"
-
             android:src="@drawable/example_selfie" />
 
 
@@ -54,7 +53,6 @@
                     android:background="#00FFFFFF"
 
                     android:drawableLeft="@drawable/facebook_icon"
-
                     android:onClick="feedbackButtonOnClick"
                     android:text="420 Likes" />
 

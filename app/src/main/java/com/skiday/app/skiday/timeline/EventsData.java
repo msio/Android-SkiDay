@@ -22,11 +22,11 @@ public class EventsData {
         //NEUREUTHER Felix is logged in
         ArrayList<Event> events = new ArrayList<Event>();
         events.add(new Event(parseTime("9:00"), parseTime("10:15"), EventType.TRAINER, "Preparation Meeting", 0, "Room S3-C"));
-        events.add(new Event(parseTime("10:30"), parseTime("10:35"), EventType.ROUND, "", 1, "Start"));
+        events.add(new Event(parseTime("10:30"), parseTime("10:35"), EventType.ROUND, "Round 1", 1, "Start"));
         events.add(new Event(parseTime("10:40"), parseTime("10:55"), EventType.PRESS, "Press ATV", 0, "Room Press"));
         events.add(new Event(parseTime("11:00"), parseTime("11:20"), EventType.SOCIAL, "Fan Window", 0, "Room S3-H"));
         events.add(new Event(parseTime("12:00"), parseTime("13:00"), EventType.TRAINER, "After Analysis Meeting", 0, "Room S3-C"));
-        events.add(new Event(parseTime("13:30"), parseTime("13:35"), EventType.ROUND, "", 2, "Start"));
+        events.add(new Event(parseTime("13:30"), parseTime("13:35"), EventType.ROUND, "Round 2", 2, "Start"));
         return events;
     }
 
