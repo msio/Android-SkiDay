@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.skiday.app.skiday.feedback.FeedbackFragment;
 import com.skiday.app.skiday.ranking.RankingFragment;
 import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, "ranking selected");
                     selectedFragment = RankingFragment.newInstance();
                     break;
+                case R.id.menu_feedback:
+                    selectedFragment = FeedbackFragment.newInstance();
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content, selectedFragment);
