@@ -1,5 +1,7 @@
 package com.skiday.app.skiday;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.skiday.app.skiday.feedback.FeedbackFragment;
 import com.skiday.app.skiday.ranking.RankingFragment;
@@ -55,4 +58,25 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    public void feedbackButtonOnClick(View view){
+        String url;
+        switch(view.getId()){
+            case R.id.twitter_button:
+                url = "https://twitter.com/";
+                break;
+            case R.id.facebook_button:
+                url = "https://facebook.com/";
+                break;
+            case R.id.instagram_button:
+                url = "http://instagram.com/";
+                break;
+            default:
+                url = "https://google.de/";
+                break;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
 }

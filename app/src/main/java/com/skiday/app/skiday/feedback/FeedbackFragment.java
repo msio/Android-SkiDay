@@ -32,4 +32,8 @@ public class FeedbackFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    public void test(View view){
+
+    }
 }
