@@ -3,6 +3,8 @@ package com.skiday.app.skiday.ranking;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +16,15 @@ import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.social.SocialFragment;
+import com.skiday.app.skiday.timeline.TimelineFragment;
 
 /**
  * Created by msio on 4/27/17.
  */
 
-public class RankingFragment extends Fragment {
+public class RankingFragment extends Fragment implements View.OnClickListener {
+
+    private static final String TAG = "RankingFragment";
 
     private String [][] rankData ={
             {"1.", "Marcel Hirscher", "1:19:85", "0", "0.3"},
@@ -95,6 +100,9 @@ public class RankingFragment extends Fragment {
         int textColor = getResources().getColor(R.color.colorRankTableFieldText);
 
         TableRow row = new TableRow(getContext());
+        row.setId(index);
+
+        row.setOnClickListener(this);
 
         // Rank
         TextView field = new TextView(getContext());
@@ -140,5 +148,17 @@ public class RankingFragment extends Fragment {
         row.addView(field);
 
         return row;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        Log.i(TAG, "onClick: "+v.getId());
+
+        Fragment fragment = RankDetailFragment.newInstance();
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, fragment);
+        transaction.addToBackStack("rankDetail").commit();
     }
 }
