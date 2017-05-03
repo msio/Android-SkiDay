@@ -16,7 +16,7 @@
             android:layout_marginLeft="1dp"
             android:layout_marginStart="1dp"
             android:checked="false"
-            android:text="Enable Extended-Mode"
+            android:text="Enable Managed-Mode"
             tools:checked="false"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

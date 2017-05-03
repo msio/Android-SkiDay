@@ -48,7 +48,7 @@ public class SettingsFragment extends Fragment{
         tabHost.addTab(account_settings);
 
         final TabHost.TabSpec extended_mode = tabHost.newTabSpec("extended_mode");
-        extended_mode.setIndicator("Extended Mode");
+        extended_mode.setIndicator("Managed Mode");
         extended_mode.setContent(R.id.tab2);
 
         tabHost.addTab(extended_mode);
