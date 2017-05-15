@@ -1,64 +1,65 @@
 package com.skiday.app.skiday.timeline;
 
-import com.framgia.library.calendardayview.data.IEvent;
+import android.support.annotation.NonNull;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  * Created by msio on 4/24/17.
  */
 
-public class Event implements IEvent {
+public class Event implements Comparable<Event>,Serializable{
 
-    private long id;
-    private Calendar startTime;
-    private Calendar endTime;
-    private String name;
+    private DateTime startTime;
+    private DateTime endTime;
+    private String desc;
     private String location;
-    private int color;
+    private EventType type;
+    private int round;
 
-    public Event(long id, Calendar startTime, Calendar endTime, String name, String location, int color) {
-        this.id = id;
+    public Event(DateTime startTime, DateTime endTime, EventType type, String desc,int round, String location) {
         this.startTime = startTime;
         this.endTime = endTime;
-        this.name = name;
+        this.desc = desc;
+        this.type = type;
         this.location = location;
-        this.color = color;
+        this.round = round;
     }
 
-    public long getId() {
-        return id;
+    public int getRound() {
+        return round;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setRound(int round) {
+        this.round = round;
     }
 
-    @Override
-    public Calendar getStartTime() {
+    public DateTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Calendar startTime) {
+    public void setStartTime(DateTime startTime) {
         this.startTime = startTime;
     }
 
-    @Override
-    public Calendar getEndTime() {
+    public DateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Calendar endTime) {
+    public void setEndTime(DateTime endTime) {
         this.endTime = endTime;
     }
 
-    @Override
-    public String getName() {
-        return name;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getLocation() {
@@ -69,12 +70,16 @@ public class Event implements IEvent {
         this.location = location;
     }
 
-    @Override
-    public int getColor() {
-        return color;
+    public EventType getType() {
+        return type;
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    public void setType(EventType type) {
+        this.type = type;
+    }
+
+    @Override
+    public int compareTo(@NonNull Event o) {
+        return startTime.compareTo(o.getStartTime());
     }
 }

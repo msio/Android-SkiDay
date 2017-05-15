@@ -1,0 +1,43 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.skiday.app.skiday.social.views.SocialImageCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:facebookLikes="400"
+                app:instagramLikes="430"
+                app:twitterLikes="20"
+                app:numberOfComments="10"/>
+
+            <com.skiday.app.skiday.social.views.SocialImageCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:facebookLikes="420"
+                app:twitterLikes="69"
+                app:instagramLikes="8008"
+                app:numberOfComments="100"
+                app:imageReference="@drawable/example_ski_picture"/>
+
+            <com.skiday.app.skiday.social.views.SocialTextCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:textPost="Oida schmoke the devils lettuce"
+                app:twitterLikes="420"
+                app:facebookLikes="100"
+                app:numberOfComments="10"/>
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

@@ -1,0 +1,62 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.skiday.app.skiday.settings.ExtendedModeFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:layout_marginStart="1dp"
+            android:checked="false"
+            android:text="Enable Managed-Mode"
+            tools:checked="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/timeline_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/team_edit_text"
+            android:ems="10"
+            android:hint="Social Media Team Server"
+            android:inputType="none" />
+
+        <EditText
+            android:id="@+id/team_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Timeline-Managers"
+            android:inputType="none" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/switch1"
+            android:layout_alignStart="@+id/switch1"
+            android:layout_below="@+id/switch1"
+            android:layout_marginTop="24dp"
+            android:text="Please note that the Managed-Mode is meant for athletes with a social-media-team behind them." />
+    </RelativeLayout>
+</FrameLayout>

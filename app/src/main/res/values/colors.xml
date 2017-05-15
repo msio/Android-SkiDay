@@ -3,7 +3,10 @@
     <color name="colorPrimary">#0190BF</color>
     <color name="colorPrimaryDark">#3DB5E6</color>
     <color name="colorAccent">#C23C87</color>
-
+    <color name="colorDetailsValue">#000000</color>
+    <color name="colorDetailsLabel">#80000000</color>
+    <color name="colorDarkGrey">#8a000000</color>
+    <color name="colorWhite">#FFFFFF</color>
     <color name="colorRankTableFieldText">#de000000</color>
     <color name="colorRankTableHeader">#8a000000</color>
 </resources>
