@@ -20,25 +20,30 @@
             app:srcCompat="@mipmap/hirscher"
             android:minWidth="40dp"/>
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Marcel Hirscher"
-            android:textColor="@color/colorRankTableFieldText"
-            android:textSize="30sp"
-            android:paddingTop="36sp"
-            android:paddingLeft="10sp"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            >
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Marcel Hirscher"
+                android:textColor="@color/colorRankTableFieldText"
+                android:textSize="30sp"
+                android:paddingTop="36sp"
+                android:paddingLeft="0sp"/>
+
+            <TextView
+                android:id="@+id/rank_detail_lap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Lap Startnumber 8"
+                android:height="30sp"/>
+        </LinearLayout>
 
     </GridLayout>
 
-    <TextView
-        android:id="@+id/lap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1. Lap Startnumber 8"
-        android:height="30sp"
-        android:layout_marginTop="20sp"/>
 
     <TextView
         android:id="@+id/current_time"

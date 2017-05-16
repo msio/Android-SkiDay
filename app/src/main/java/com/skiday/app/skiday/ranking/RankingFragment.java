@@ -1,5 +1,6 @@
 package com.skiday.app.skiday.ranking;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -18,8 +20,11 @@ import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.model.Lap;
+import com.skiday.app.skiday.model.MeantimeResultLine;
+import com.skiday.app.skiday.model.Person;
 import com.skiday.app.skiday.model.PersonResult;
 import com.skiday.app.skiday.model.Result;
+import com.skiday.app.skiday.model.Results;
 import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
 
@@ -34,31 +39,6 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "RankingFragment";
 
-    private String [][] rankDataLap1 ={
-            {"1.", "Marcel Hirscher", "1:19:85", "0", "0.3"},
-            {"2.", "H. Kristoffersen", "1:20:10", "+0.1", "-0.2"},
-            {"3.", "Hermann Maier", "1:22:85", "+0.3", "0"},
-    };
-
-    private String [][] rankDataLap2 ={
-            {"1.", "H. Kristoffersen", "1:20:84", "0", "-2.3"},
-            {"2.", "Marcel Hirscher", "1:21:11", "+0.1", "-1.2"},
-            {"3.", "Hermann Maier", "1:22:85", "+2.3", "0"},
-    };
-
-    private String [][] rankDataTotal ={
-            {"1.", "Marcel Hirscher", "2:40:15", "0", "0.3"},
-            {"2.", "H. Kristoffersen", "2:43:13", "+0.1", "-0.2"},
-            {"3.", "Hermann Maier", "2:44:85", "+0.3", "0"},
-    };
-
-    private String [][] resultTable = {
-            {"00:15.23", "+1.2", "-2.1"},
-            {"00:35.10", "+0.5", "-1.2"},
-            {"01:01,12", "+0,1", "-1.3"},
-            {"01:19,85", "0", "+1.3"},
-    };
-
     public static RankingFragment newInstance() {
         RankingFragment fragment = new RankingFragment();
         return fragment;
@@ -72,6 +52,7 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return inflater.inflate(R.layout.fragment_ranking, container, false);
     }
 
@@ -104,8 +85,10 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
         host.addTab(spec);
 
         setupTable(view);
-
     }
+
+
+    LayoutInflater mInflater = null;
 
     public void setupTable(View view){
 
@@ -113,22 +96,93 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
         TableLayout table1 = (TableLayout) view.findViewById(R.id.ranking_table_lap2);
         TableLayout table2 = (TableLayout) view.findViewById(R.id.ranking_table_result);
 
-  /*      for (int i = 0; i< rankDataLap1.length; i++){
-
-            table.addView(getRow(rankDataLap1, i));
-            table1.addView(getRow(rankDataLap2, i));
-            table2.addView(getRow(rankDataTotal, i));
-        }*/
-
-        for(PersonResult person : getData()){
-            table.addView(getRow(person, person.getLap1().getTotal()));
-            table1.addView(getRow(person, person.getLap2().getTotal()));
-            table2.addView(getRow(person, person.getTotal()));
+        int rank = 1;
+        for (MeantimeResultLine line : getResults ().getLapResultTable(1)){
+            table.addView(getRow(line, rank, 1));
+            rank++;
         }
-
+        rank = 1;
+        for (MeantimeResultLine line : getResults ().getLapResultTable(2)){
+            table1.addView(getRow(line, rank, 2));
+            rank++;
+        }
+        rank = 1;
+        for (MeantimeResultLine line : getResults ().getLapResultTable(3)){
+            table2.addView(getRow(line, rank, 3));
+            rank++;
+        }
     }
 
-    private TableRow getRow(PersonResult data, Result result){
+    private View getRow(MeantimeResultLine line, int rank, int lapNumber){
+
+        Log.i(TAG, "getRow: "+line);
+
+        View listItemView = mInflater.inflate(R.layout.rank_list_item, null);
+        listItemView.setId(line.getPerson().getId());
+        listItemView.setTag(R.integer.lapNumber, lapNumber);
+        listItemView.setOnClickListener(this);
+
+        TextView view = (TextView)listItemView.findViewById(R.id.rank_list_item_name);
+        view.setText(line.getPerson().getName());
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_rank);
+        view.setText(rank + ".");
+
+        ImageView imgView = (ImageView)listItemView.findViewById(R.id.rank_list_item_profile_image);
+        Drawable drawable = getResources().getDrawable(line.getPerson().getPictureId());
+        imgView.setImageDrawable(drawable);
+
+        imgView = (ImageView)listItemView.findViewById(R.id.rank_list_item_profile_best_icon);
+
+        if(line.getRelBest() != 0)
+            imgView.setImageDrawable(null);
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_time);
+        view.setText(PersonResult.timeToString(line.getTime()));
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_rel_best);
+        view.setText(PersonResult.timeToString(line.getRelBest()));
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_rel_me);
+        view.setText(PersonResult.timeToString(line.getRelMe()));
+
+        return listItemView;
+    }
+
+
+    private View getRow(PersonResult data, Result result){
+
+        View listItemView = mInflater.inflate(R.layout.rank_list_item, null);
+        listItemView.setId(data.getRank());
+        listItemView.setOnClickListener(this);
+
+        TextView view = (TextView)listItemView.findViewById(R.id.rank_list_item_name);
+        view.setText(data.getName());
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_rank);
+        view.setText(data.getRank() + ".");
+
+        ImageView imgView = (ImageView)listItemView.findViewById(R.id.rank_list_item_profile_image);
+        Drawable drawable = getResources().getDrawable(data.getPictureId());
+        imgView.setImageDrawable(drawable);
+
+        imgView = (ImageView)listItemView.findViewById(R.id.rank_list_item_profile_best_icon);
+        imgView.setImageDrawable(null);
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_time);
+        view.setText(result.getTime());
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_rel_best);
+        view.setText(result.getRelativeToBest());
+
+        view = (TextView)listItemView.findViewById(R.id.rank_list_item_rel_me);
+        view.setText(result.getRelativeToMe());
+
+        return listItemView;
+    }
+
+    private View getRow1(PersonResult data, Result result){
+
 
         int textColor = getResources().getColor(R.color.colorRankTableFieldText);
 
@@ -206,14 +260,27 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
 
         Log.i(TAG, "onClick: "+v.getId());
 
-        Fragment fragment = RankDetailFragment.newInstance(v.getId());
+        int lapNumber = (int) v.getTag(R.integer.lapNumber);
+
+        if (lapNumber == 3) return;
+
+        Fragment fragment = RankDetailFragment.newInstance(v.getId(), lapNumber);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.content, fragment);
         transaction.addToBackStack("rankDetail").commit();
     }
 
-    public static List<PersonResult> getData(){
+    static Results results = null;
+    public static Results getResults(){
+        if (results == null) {
+            results = new Results();
+            results.init();
+        }
+        return results;
+    }
+
+    public static List<PersonResult> getData1(){
 
         List<PersonResult> rankData = new ArrayList<>();
 
@@ -221,20 +288,20 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
         personResult.setPictureId(R.mipmap.hirscher);
         personResult.setRank(1);
         Lap lap = new Lap();
-        lap.setMeantime1(new Result("00:15.23", "+1.2", "-2.1"));
-        lap.setMeantime2(new Result("00:35.10", "+0.5", "-1.2"));
-        lap.setMeantime3(new Result("01:01,12", "+0,1", "-1.3"));
-        lap.setTotal(new Result("01:19,85", "0", "+1.3"));
+        lap.setMeantime1(new Result(1523, 120, -210));
+        lap.setMeantime2(new Result(3510, 050, -120));
+        lap.setMeantime3(new Result(6112, 10, -130));
+        lap.setTotal(new Result(7985, 0, 130));
         personResult.setLap1(lap);
 
         lap = new Lap();
-        lap.setMeantime1(new Result("00:14.23", "+1.2", "-2.1"));
-        lap.setMeantime2(new Result("00:34.32", "+0.4", "-1.3"));
-        lap.setMeantime3(new Result("01:04,14", "+0,2", "-1.3"));
-        lap.setTotal(new Result("01:21,75", "0", "+1.4"));
+//        lap.setMeantime1(new Result("00:14.23", "+1.2", "-2.1"));
+//        lap.setMeantime2(new Result("00:34.32", "+0.4", "-1.3"));
+//        lap.setMeantime3(new Result("01:04,14", "+0,2", "-1.3"));
+//        lap.setTotal(new Result("01:21,75", "0", "+1.4"));
         personResult.setLap2(lap);
 
-        personResult.setTotal(new Result("02:40,85", "0", "+1.3"));
+//        personResult.setTotal(new Result("02:40,85", "0", "+1.3"));
         rankData.add(personResult);
 
 
@@ -242,20 +309,20 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
         personResult.setPictureId(R.mipmap.maier);
         personResult.setRank(2);
         lap = new Lap();
-        lap.setMeantime1(new Result("00:15.23", "+1.2", "-2.1"));
-        lap.setMeantime2(new Result("00:35.10", "+0.5", "-1.2"));
-        lap.setMeantime3(new Result("01:01,12", "+0,1", "-1.3"));
-        lap.setTotal(new Result("01:19,85", "0", "+1.3"));
+//        lap.setMeantime1(new Result("00:15.23", "+1.2", "-2.1"));
+//        lap.setMeantime2(new Result("00:35.10", "+0.5", "-1.2"));
+//        lap.setMeantime3(new Result("01:01,12", "+0,1", "-1.3"));
+//        lap.setTotal(new Result("01:19,85", "0", "+1.3"));
         personResult.setLap1(lap);
 
         lap = new Lap();
-        lap.setMeantime1(new Result("00:14.23", "+1.2", "-2.1"));
-        lap.setMeantime2(new Result("00:34.32", "+0.4", "-1.3"));
-        lap.setMeantime3(new Result("01:04,14", "+0,2", "-1.3"));
-        lap.setTotal(new Result("01:21,75", "0", "+1.4"));
+//        lap.setMeantime1(new Result("00:14.23", "+1.2", "-2.1"));
+//        lap.setMeantime2(new Result("00:34.32", "+0.4", "-1.3"));
+//        lap.setMeantime3(new Result("01:04,14", "+0,2", "-1.3"));
+//        lap.setTotal(new Result("01:21,75", "0", "+1.4"));
         personResult.setLap2(lap);
 
-        personResult.setTotal(new Result("02:41,82", "+1", "+0.3"));
+//        personResult.setTotal(new Result("02:41,82", "+1", "+0.3"));
         rankData.add(personResult);
 
 
@@ -263,20 +330,20 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
         personResult.setPictureId(R.mipmap.kristoffersen);
         personResult.setRank(3);
         lap = new Lap();
-        lap.setMeantime1(new Result("00:15.23", "+1.2", "-2.1"));
-        lap.setMeantime2(new Result("00:35.10", "+0.5", "-1.2"));
-        lap.setMeantime3(new Result("01:01,12", "+0,1", "-1.3"));
-        lap.setTotal(new Result("01:19,85", "0", "+1.3"));
+//        lap.setMeantime1(new Result("00:15.23", "+1.2", "-2.1"));
+//        lap.setMeantime2(new Result("00:35.10", "+0.5", "-1.2"));
+//        lap.setMeantime3(new Result("01:01,12", "+0,1", "-1.3"));
+//        lap.setTotal(new Result("01:19,85", "0", "+1.3"));
         personResult.setLap1(lap);
 
         lap = new Lap();
-        lap.setMeantime1(new Result("00:14.23", "+1.2", "-2.1"));
-        lap.setMeantime2(new Result("00:33.32", "+0.4", "-1.3"));
-        lap.setMeantime3(new Result("01:05,23", "+0,2", "-1.3"));
-        lap.setTotal(new Result("01:21,75", "0", "+1.4"));
+//        lap.setMeantime1(new Result("00:14.23", "+1.2", "-2.1"));
+//        lap.setMeantime2(new Result("00:33.32", "+0.4", "-1.3"));
+//        lap.setMeantime3(new Result("01:05,23", "+0,2", "-1.3"));
+//        lap.setTotal(new Result("01:21,75", "0", "+1.4"));
         personResult.setLap2(lap);
 
-        personResult.setTotal(new Result("02:42,15", "2.1", "0"));
+//        personResult.setTotal(new Result("02:42,15", "2.1", "0"));
         rankData.add(personResult);
 
         return rankData;
