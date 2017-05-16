@@ -6,40 +6,40 @@ package com.skiday.app.skiday.model;
 
 public class Result {
 
-    private String time;
-    private String relativeToBest;
-    private String relativeToMe;
+    private int time;
+    private int relativeToBest;
+    private int relativeToMe;
 
     public Result() {
     }
 
-    public Result(String time, String relativeToBest, String relativeToMe) {
+    public Result(int time, int relativeToBest, int relativeToMe) {
         this.time = time;
         this.relativeToBest = relativeToBest;
         this.relativeToMe = relativeToMe;
     }
 
-    public String getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public String getRelativeToBest() {
+    public int getRelativeToBest() {
         return relativeToBest;
     }
 
-    public void setRelativeToBest(String relativeToBest) {
+    public void setRelativeToBest(int relativeToBest) {
         this.relativeToBest = relativeToBest;
     }
 
-    public String getRelativeToMe() {
+    public int getRelativeToMe() {
         return relativeToMe;
     }
 
-    public void setRelativeToMe(String relativeToMe) {
+    public void setRelativeToMe(int relativeToMe) {
         this.relativeToMe = relativeToMe;
     }
 }

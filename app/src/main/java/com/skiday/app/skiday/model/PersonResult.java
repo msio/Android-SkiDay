@@ -65,4 +65,33 @@ public class PersonResult {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static String timeToString(int time){
+        String timeString = "";
+        int min, sec, milli;
+        boolean negative = false;
+
+        if (time < 0){
+            negative = true;
+            time = (-1)*time;
+        }
+
+        min = (Math.abs(time/6000));
+        time = (Math.abs(time%6000));
+        sec = time/100;
+        milli = time%100;
+
+        if (min != 0) {
+
+            //String tmp = String.format("%1$02d", foo).toString();
+            timeString = String.format("%1$02d:%2$02d,%3$02d", min, sec, milli).toString();
+        }else {
+            timeString = String.format("%1$02d,%2$02d", sec, milli).toString();
+        }
+
+        if (negative)
+            timeString = "-"+timeString;
+
+        return timeString;
+    }
 }

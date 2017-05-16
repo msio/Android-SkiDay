@@ -26,6 +26,7 @@ import static java.security.AccessController.getContext;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private static int ownId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,5 +110,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static int getOwnId(){
+        return ownId;
     }
 }
