@@ -2,58 +2,48 @@ package com.skiday.app.skiday.ranking;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
-import com.skiday.app.skiday.model.MeantimeResult;
 import com.skiday.app.skiday.model.MeantimeResultLine;
 import com.skiday.app.skiday.model.Person;
 import com.skiday.app.skiday.model.PersonResult;
-import com.skiday.app.skiday.model.Result;
 import com.skiday.app.skiday.model.Results;
 
 /**
+ * Show details of a run.
+ *
  * Created by jan on 03.05.17.
  */
-
 public class RankDetailFragment extends Fragment {
 
     private static final String TAG = "RankingDetailFragment";
 
-    private String [][] resultTable = {
-            {"00:15.23", "+1.2", "-2.1"},
-            {"00:35.10", "+0.5", "-1.2"},
-            {"01:01,12", "+0,1", "-1.3"},
-            {"01:19,85", "0", "+1.3"},
-    };
-
     private int id;
-    //PersonResult personResult;
     private int lapNumber;
+    private Person person;
+    private boolean live = false;
 
-    Person person;
-
-
-    Results results = null;
-
-    public static RankDetailFragment newInstance(int id, int lapNumber) {
-        Log.i(TAG, "newInstance: ");
+    public static RankDetailFragment newInstance(int id, int lapNumber, boolean live) {
+        Log.i(TAG, "newInstance: "+id);
         RankDetailFragment fragment = new RankDetailFragment();
         fragment.setId(id);
         fragment.setLapNumber(lapNumber);
+        fragment.setLive(live);
         return fragment;
     }
 
+    public void setLive(boolean live){
+        this.live = live;
+    }
     public void setLapNumber(int lapNumber){
         this.lapNumber = lapNumber;
     }
@@ -71,10 +61,15 @@ public class RankDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView: "+id);
-        person = RankingFragment.getResults().getPersons().get(id);
+        person = Results.getResults().getPersons().get(id);
 
         return inflater.inflate(R.layout.fragment_rank_detail, container, false);
     }
+
+    MeantimeResultLine meanTime1;
+    MeantimeResultLine meanTime2;
+    MeantimeResultLine meanTime3;
+    MeantimeResultLine meanTime4;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -87,7 +82,7 @@ public class RankDetailFragment extends Fragment {
         field = (TextView) view.findViewById (R.id.rank_detail_lap);
         field.setText(lapNumber + ". Lap");
 
-        MeantimeResultLine result3 = RankingFragment.getResults().getMeantimeResultLine(id, lapNumber, 4);
+        MeantimeResultLine result3 = Results.getResults().getMeantimeResultLine(id, lapNumber, 4);
         field = (TextView) view.findViewById (R.id.current_time);
         field.setText(PersonResult.timeToString(result3.getTime()));
 
@@ -95,115 +90,131 @@ public class RankDetailFragment extends Fragment {
         Drawable drawable = getResources().getDrawable(person.getPictureId());
         profile.setImageDrawable(drawable);
 
-        TableLayout table = (TableLayout) view.findViewById(R.id.intermed_results);
 
-        MeantimeResultLine result = RankingFragment.getResults().getMeantimeResultLine(id, lapNumber, 1);
-        table.addView(getRow("1. Meantime", result));
-        MeantimeResultLine result1 = RankingFragment.getResults().getMeantimeResultLine(id, lapNumber, 2);
-        table.addView(getRow("2. Meantime", result1));
-        result = RankingFragment.getResults().getMeantimeResultLine(id, lapNumber, 3);
-        table.addView(getRow("3. Meantime", result));
-        result = RankingFragment.getResults().getMeantimeResultLine(id, lapNumber, 4);
-        table.addView(getResultRow("Total", result));
+        meanTime1 = Results.getResults().getMeantimeResultLine(id, lapNumber, 1);
+        meanTime2 = Results.getResults().getMeantimeResultLine(id, lapNumber, 2);
+        meanTime3 = Results.getResults().getMeantimeResultLine(id, lapNumber, 3);
+        meanTime4 = Results.getResults().getMeantimeResultLine(id, lapNumber, 4);
 
+        if (live)
+            startLive(view);
+        else
+            showResult(view);
+    }
 
+    public void showResult(View view){
+        fillMeantimeView(view, 1, meanTime1);
+        fillMeantimeView(view, 2, meanTime2);
+        fillMeantimeView(view, 3, meanTime3);
+        fillMeantimeView(view, 4, meanTime4);
+    }
+
+    private void fillMeantimeView(View view, int meanTime, MeantimeResultLine result){
+
+        int time = 0, best = 0, me = 0;
+
+        switch (meanTime){
+            case 1:
+                time = R.id.rank_detail_m1_time;
+                best = R.id.rank_detail_m1_best;
+                me = R.id.rank_detail_m1_me;
+                break;
+            case 2:
+                time = R.id.rank_detail_m2_time;
+                best = R.id.rank_detail_m2_best;
+                me = R.id.rank_detail_m2_me;
+                break;
+            case 3:
+                time = R.id.rank_detail_m3_time;
+                best = R.id.rank_detail_m3_best;
+                me = R.id.rank_detail_m3_me;
+                break;
+            case 4:
+                time = R.id.rank_detail_m4_time;
+                best = R.id.rank_detail_m4_best;
+                me = R.id.rank_detail_m4_me;
+                break;
+        }
+
+        TextView field = (TextView) view.findViewById(time);
+        field.setText(PersonResult.timeToString(result.getTime()));
+
+        field = (TextView) view.findViewById(best);
+        field.setText(PersonResult.timeToString(result.getRelBest()));
+
+        field = (TextView) view.findViewById(me);
+        field.setText(PersonResult.timeToString(result.getRelMe()));
+    }
+
+    /**
+     * Start live-move.
+     *
+     * @param view
+     */
+    public void startLive(final View view){
+
+        final int millis = meanTime4.getTime() * 10;
+
+        final int mTime1 = meanTime1.getTime();
+        final int mTime2 = meanTime2.getTime();
+        final int mTime3 = meanTime3.getTime();
+
+        Log.i(TAG, "startLive: "+mTime1);
+
+        currentTime = (TextView) view.findViewById (R.id.current_time);
+
+        CountDownTimer timer = new CountDownTimer(millis, 10) {
+            boolean mt1 = false, mt2 = false, mt3 = false;
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                long seconds = millisUntilFinished/10;
+                long countUp = (millis/10)-seconds;
+                setClock(countUp);
+
+                long millisCounting = millis - millisUntilFinished;
+
+                if (!mt1 && (millisCounting > (mTime1*10))){
+                    // show Meantime1
+                    fillMeantimeView(view, 1, meanTime1);
+                    Log.i(TAG, "Show meantime 1");
+                    mt1 = true;
+                }
+
+                if (!mt2 && (millisCounting > (mTime2*10))){
+                    // show Meantime 2
+                    fillMeantimeView(view, 2, meanTime2);
+                    Log.i(TAG, "Show meantime 2");
+                    mt2 = true;
+                }
+
+                if (!mt3 && (millisCounting > (mTime3*10))){
+                    // show Meantime 3
+                    fillMeantimeView(view, 3, meanTime3);
+                    Log.i(TAG, "Show meantime 3");
+                    mt3 = true;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                Log.i(TAG, "onFinish: ");
+                fillMeantimeView(view, 4, meanTime4);
+                setClock(millis/10);
+            }
+        };
+        timer.start();
     }
 
 
-    private TableRow getRow(String caption, MeantimeResultLine result){
+    TextView currentTime = null;
 
-        int textColor = getResources().getColor(R.color.colorRankTableFieldText);
-        int headerColor = getResources().getColor(R.color.colorRankTableHeader);
-
-        TableRow row = new TableRow(getContext());
-
-        // Header
-        TextView field = new TextView(getContext());
-        field.setText(caption);
-        field.setTextSize(13);
-        field.setTextColor(headerColor);
-        field.setHeight(90);
-        field.setWidth(350);
-        row.addView(field);
-
-        // Time
-        field = new TextView(getContext());
-        field.setText(PersonResult.timeToString(result.getTime()));
-        field.setTextSize(13);
-        field.setHeight(90);
-        field.setWidth(200);
-        field.setTextColor(textColor);
-
-        row.addView(field);
-
-        // Time in relation to best
-        field = new TextView(getContext());
-        field.setText(PersonResult.timeToString(result.getRelBest()));
-        field.setTextSize(13);
-        field.setTextColor(textColor);
-        field.setWidth(150);
-        field.setGravity(Gravity.END);
-        row.addView(field);
-
-        // Time in relation to "me"
-        field = new TextView(getContext());
-        field.setText(PersonResult.timeToString(result.getRelMe()));
-        field.setTextSize(13);
-        field.setTextColor(textColor);
-        field.setWidth(150);
-        field.setGravity(Gravity.END);
-        row.addView(field);
-
-        return row;
-    }
-
-
-    private TableRow getResultRow(String caption, MeantimeResultLine result){
-
-        int textColor = getResources().getColor(R.color.colorRankTableFieldText);
-        int headerColor = getResources().getColor(R.color.colorRankTableHeader);
-        int primaryColor = getResources().getColor(R.color.colorPrimary);
-
-        TableRow row = new TableRow(getContext());
-
-        // Header
-        TextView field = new TextView(getContext());
-        field.setText(caption);
-        field.setTextSize(13);
-        field.setTextColor(headerColor);
-        field.setHeight(90);
-        field.setWidth(350);
-        row.addView(field);
-
-        // Time
-        field = new TextView(getContext());
-        field.setText(PersonResult.timeToString(result.getTime()));
-        field.setTextSize(13);
-        field.setHeight(90);
-        field.setWidth(200);
-        field.setTextColor(primaryColor);
-
-        row.addView(field);
-
-        // Time in relation to best
-        field = new TextView(getContext());
-        field.setText(PersonResult.timeToString(result.getRelBest()));
-        field.setTextSize(13);
-        field.setTextColor(primaryColor);
-        field.setWidth(150);
-        field.setGravity(Gravity.END);
-        row.addView(field);
-
-        // Time in relation to "me"
-        field = new TextView(getContext());
-        field.setText(PersonResult.timeToString(result.getRelMe()));
-        field.setTextSize(13);
-        field.setTextColor(primaryColor);
-        field.setWidth(150);
-        field.setGravity(Gravity.END);
-        row.addView(field);
-
-        return row;
-
+    /**
+     * Setting the clock-view to the value.
+     * @param millis
+     */
+    public void setClock(long millis){
+        currentTime.setText(PersonResult.timeToString2((int) millis));
     }
 }

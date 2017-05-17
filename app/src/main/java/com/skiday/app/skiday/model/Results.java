@@ -95,12 +95,8 @@ public class Results {
     }
 
     public MeantimeResultLine getMeantimeResultLine(int id, final int lapNumber, final int meantimeNumber){
-
         Log.i(TAG, "getMeantimeResultLine: "+ id+ " "+ lapNumber+" "+meantimeNumber);
 
-        //if (meantimeNumber == 4) return null;
-
-        //return getMeantimeResults().stream().filter(t -> (id == t.getId() && lapNumber == t.getLapNumber() && meantimeNumber == t.getMeantimeNumber())).findFirst().get();
         List<MeantimeResult> meantimeResults = new ArrayList<>();
         int ownId = MainActivity.getOwnId();
         MeantimeResult currentMeantimeResult = null;
@@ -133,8 +129,6 @@ public class Results {
         return line;
     }
 
-
-
     public HashMap<Integer, Person> getPersons() {
         if(persons == null)
             persons = new HashMap<>();
@@ -145,5 +139,14 @@ public class Results {
         if (meantimeResults == null)
             meantimeResults = new ArrayList<>();
         return meantimeResults;
+    }
+
+    private static Results results = null;
+    public static Results getResults(){
+        if (results == null){
+            results = new Results();
+            results.init();
+        }
+        return results;
     }
 }
