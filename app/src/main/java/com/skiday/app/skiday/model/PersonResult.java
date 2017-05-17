@@ -94,4 +94,18 @@ public class PersonResult {
 
         return timeString;
     }
+
+    public static String timeToString2(int time){
+        String timeString = "";
+        int min, sec, milli;
+
+        min = (Math.abs(time/6000));
+        time = (Math.abs(time%6000));
+        sec = time/100;
+        milli = time%100;
+        timeString = String.format("%1$02d:%2$02d,%3$02d", min, sec, milli).toString();
+
+        return timeString;
+    }
+
 }

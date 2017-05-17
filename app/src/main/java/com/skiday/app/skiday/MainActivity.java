@@ -2,13 +2,13 @@ package com.skiday.app.skiday;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,22 +16,25 @@ import android.view.View;
 
 import com.skiday.app.skiday.feedback.FeedbackFragment;
 import com.skiday.app.skiday.login.LoginActivity;
+import com.skiday.app.skiday.model.Results;
+import com.skiday.app.skiday.ranking.RankDetailFragment;
 import com.skiday.app.skiday.ranking.RankingFragment;
 import com.skiday.app.skiday.settings.SettingsFragment;
 import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
 
-import static java.security.AccessController.getContext;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
-    private static int ownId = 1;
+    private static int ownId = 1; // Marcel Hirscher is the current user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_live);
+        fab.setOnClickListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -114,5 +117,21 @@ public class MainActivity extends AppCompatActivity {
 
     public static int getOwnId(){
         return ownId;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        Log.i(TAG, "onClick: Fab clicked." );
+
+        int count = Results.getResults().getPersons().size();
+
+        int id = (int) (Math.random()*10)%count;
+
+        RankDetailFragment fragment = RankDetailFragment.newInstance(id, 2, true);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, fragment);
+        transaction.addToBackStack("rankDetail").commit();
+
     }
 }
