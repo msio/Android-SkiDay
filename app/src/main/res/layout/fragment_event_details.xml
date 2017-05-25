@@ -29,7 +29,7 @@
         android:textSize="@dimen/details_label_text_size" />
 
     <TextView
-        android:id="@+id/round"
+        android:id="@+id/lap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorDetailsValue"

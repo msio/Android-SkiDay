@@ -4,7 +4,6 @@ package com.skiday.app.skiday.timeline;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,14 +47,14 @@ public class EventDetailsFragment extends Fragment {
         TextView desc = (TextView) view.findViewById(R.id.description);
         desc.setText(data.getDesc());
         TextView roundLabel = (TextView) view.findViewById(R.id.roundLabel);
-        TextView round = (TextView) view.findViewById(R.id.round);
+//        TextView round = (TextView) view.findViewById(R.id.round);
 
-        if (data.getType() == EventType.ROUND) {
-            round.setText("" + data.getRound());
-        } else {
-            roundLabel.setVisibility(View.GONE);
-            round.setVisibility(View.GONE);
-        }
+//        if (data.getType() == EventType.LAP) {
+//            round.setText("" + data.getLap());
+//        } else {
+//            roundLabel.setVisibility(View.GONE);
+//            round.setVisibility(View.GONE);
+//        }
 
         DateTimeFormatter fmt = DateTimeFormat.forPattern(Constants.TIME_FORMAT);
         TextView startTime = (TextView) view.findViewById(R.id.startTime);

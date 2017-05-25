@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TabHost;
 
@@ -48,7 +52,9 @@ public class TimelineFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final ListView listViewMyEvents = (ListView) view.findViewById(R.id.timeline_myEvents);
+//        final ListView listViewMyEvents = (ListView) view.findViewById(R.id.timeline_myEvents);
+        final ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.timeline_expandableListView);
+
         final ListView listViewEventCreator = (ListView) view.findViewById(R.id.timeline_eventCreator);
 
         host = (TabHost) view.findViewById(R.id.tabHost);
@@ -70,7 +76,7 @@ public class TimelineFragment extends Fragment {
         spec.setIndicator("Event Creator");
         host.addTab(spec);
 
-        final CustomArrayAdapter adapter1 = new CustomArrayAdapter(context, EventsData.generateEventCreatorEvents(), EventTab.EVENT_CREATOR);
+        /*final CustomArrayAdapter adapter1 = new CustomArrayAdapter(context, EventsData.generateEventCreatorEvents(), EventTab.EVENT_CREATOR);
         listViewEventCreator.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -86,9 +92,13 @@ public class TimelineFragment extends Fragment {
                         .addToBackStack("eventDetail").commit();
             }
         });
-        listViewEventCreator.setAdapter(adapter1);
+        listViewEventCreator.setAdapter(adapter1);*/
 
-        final CustomArrayAdapter adapter2 = new CustomArrayAdapter(context, EventsData.generateMyEvents(), EventTab.MY_EVENT);
+
+
+
+        /*final CustomArrayAdapter adapter2 = new CustomArrayAdapter(context, EventsData.generate(), EventTab.MY_EVENT);
+
         listViewMyEvents.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -104,8 +114,24 @@ public class TimelineFragment extends Fragment {
                         .addToBackStack("eventDetail").commit();
             }
         });
-        listViewMyEvents.setAdapter(adapter2);
+        listViewMyEvents.setAdapter(adapter2);*/
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+
+        expandableListView.setIndicatorBounds(width - GetPixelFromDips(50), width - GetPixelFromDips(10));
+        ExpandableListAdapter expandableListAdapter = new CustomExpandableListAdapter(this.context, EventsData.generate());
+        expandableListView.setAdapter(expandableListAdapter);
+    }
+
+    private int GetPixelFromDips(float pixels) {
+        // Get the screen's density scale
+        final float scale = getResources().getDisplayMetrics().density;
+        // Convert the dps to pixels, based on density scale
+        return (int) (pixels * scale + 0.5f);
     }
 
 }

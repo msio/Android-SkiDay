@@ -5,5 +5,5 @@ package com.skiday.app.skiday.timeline;
  */
 
 public enum EventType {
-    ROUND,SOCIAL,TRAINER,PRESS,COUNTRY
+    LAP,SOCIAL,TRAINER,PRESS,COUNTRY
 }

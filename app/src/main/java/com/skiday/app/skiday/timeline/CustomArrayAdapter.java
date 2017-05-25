@@ -1,7 +1,6 @@
 package com.skiday.app.skiday.timeline;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by msio on 5/2/17.
@@ -43,12 +39,14 @@ public class CustomArrayAdapter extends ArrayAdapter<Event> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.timeline_list, parent, false);
+        View rowView = inflater.inflate(R.layout.timeline_list_item, parent, false);
+
+
         TextView desc = (TextView) rowView.findViewById(R.id.description);
         TextView time = (TextView) rowView.findViewById(R.id.time);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         Event currentEvent = events.get(position);
-        if (currentEvent.getType() == EventType.ROUND) {
+        if (currentEvent.getType() == EventType.LAP) {
             imageView.setImageResource(R.drawable.ic_round);
         } else if (currentEvent.getType() == EventType.SOCIAL) {
             imageView.setImageResource(R.drawable.ic_social);
@@ -58,11 +56,11 @@ public class CustomArrayAdapter extends ArrayAdapter<Event> {
             imageView.setImageResource(R.drawable.ic_press);
         }
 
-        if (currentEvent.getType() == EventType.ROUND) {
+        if (currentEvent.getType() == EventType.LAP) {
             if (eventTab == EventTab.MY_EVENT) {
-                desc.setText("Round " + currentEvent.getRound());
+                desc.setText("Round " + currentEvent.getLap());
             } else {
-                desc.setText(currentEvent.getDesc() + ", Round " + currentEvent.getRound());
+                desc.setText(currentEvent.getDesc() + ", Round " + currentEvent.getLap());
             }
         } else {
             desc.setText(currentEvent.getDesc());

@@ -2,40 +2,69 @@ package com.skiday.app.skiday.timeline;
 
 import android.support.annotation.NonNull;
 
+import com.skiday.app.skiday.model.Person;
+
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.ArrayList;
 
 /**
  * Created by msio on 4/24/17.
  */
 
-public class Event implements Comparable<Event>,Serializable{
+public class Event implements Comparable<Event>, Serializable {
 
     private DateTime startTime;
     private DateTime endTime;
     private String desc;
     private String location;
     private EventType type;
-    private int round;
+    private int lap;
+    private ArrayList<Event> runsInLap;
+    private Person person;
 
-    public Event(DateTime startTime, DateTime endTime, EventType type, String desc,int round, String location) {
+
+    public Event(DateTime startTime, DateTime endTime, EventType type, String desc, int lap, String location) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.desc = desc;
         this.type = type;
         this.location = location;
-        this.round = round;
+        this.lap = lap;
     }
 
-    public int getRound() {
-        return round;
+    public Event(DateTime startTime, DateTime endTime, int lap, Person person) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.type = EventType.LAP;
+        this.lap = lap;
+        this.person = person;
     }
 
-    public void setRound(int round) {
-        this.round = round;
+
+    public Event(EventType type, String desc, int lap, String location, ArrayList<Event> runsInLap) {
+        this.runsInLap = runsInLap;
+        this.desc = desc;
+        this.type = type;
+        this.location = location;
+        this.lap = lap;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public ArrayList<Event> getRunsInLap() {
+        return runsInLap;
+    }
+
+    public int getLap() {
+        return lap;
+    }
+
+    public void setLap(int lap) {
+        this.lap = lap;
     }
 
     public DateTime getStartTime() {
