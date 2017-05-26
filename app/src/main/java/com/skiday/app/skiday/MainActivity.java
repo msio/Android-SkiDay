@@ -1,5 +1,6 @@
 package com.skiday.app.skiday;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content,TimelineFragment.newInstance());
+        transaction.replace(R.id.content, TimelineFragment.newInstance());
         transaction.commit();
     }
 
@@ -67,15 +69,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-    private void loadFragment(Fragment fragment){
+    private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content, fragment);
         transaction.commit();
     }
 
-    public void feedbackButtonOnClick(View view){
+    public void feedbackButtonOnClick(View view) {
         String url;
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.twitter_button:
                 url = "https://twitter.com/";
                 break;
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout_button:
 
                 Intent Intent = new Intent(this, LoginActivity.class);
@@ -111,22 +113,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.settings_button:
                 loadFragment(new SettingsFragment());
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public static int getOwnId(){
+    public static int getOwnId() {
         return ownId;
     }
 
     @Override
     public void onClick(View v) {
 
-        Log.i(TAG, "onClick: Fab clicked." );
+        Log.i(TAG, "onClick: Fab clicked.");
 
         int count = Results.getResults().getPersons().size();
 
-        int id = (int) (Math.random()*10)%count;
+        int id = (int) (Math.random() * 10) % count;
 
         RankDetailFragment fragment = RankDetailFragment.newInstance(id, 2, true);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

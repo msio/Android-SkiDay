@@ -4,59 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TabHost
-        android:id="@+id/tabHost"
+    <ExpandableListView
+        android:id="@+id/timeline_expandableListView"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-            </TabWidget>
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:id="@+id/tab_myEvents"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ExpandableListView
-                        android:id="@+id/timeline_expandableListView"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        android:groupIndicator="@null"
-                        />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab_eventCreator"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/timeline_eventCreator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
-
-            </FrameLayout>
-        </LinearLayout>
-    </TabHost>
+        android:groupIndicator="@null"
+        />
 
 </LinearLayout>

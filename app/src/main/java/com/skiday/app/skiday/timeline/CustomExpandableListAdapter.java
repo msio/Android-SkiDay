@@ -1,8 +1,9 @@
 package com.skiday.app.skiday.timeline;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.constants.Constants;
-import com.skiday.app.skiday.model.Results;
+import com.skiday.app.skiday.model.Event;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -30,10 +31,28 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<Event> events;
+    private ArrayList<Event> allEvents;
 
     public CustomExpandableListAdapter(Context context, ArrayList<Event> events) {
         this.context = context;
         this.events = events;
+        this.allEvents = new ArrayList<Event>(events);
+    }
+
+    public void showOnlyLaps(boolean onlyLaps) {
+        if (onlyLaps) {
+            System.out.print(events.size());
+            for (int i = 0; i < events.size(); i++) {
+                System.out.println(events.get(i).getType());
+                if (events.get(i).getType() != EventType.LAP) {
+                    events.remove(i);
+                }
+                events.remove(1);
+            }
+        } else {
+            events = new ArrayList<Event>(allEvents);
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -79,12 +98,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.timeline_list_item, parent, false);
+        Event currentEvent = events.get(groupPosition);
 
         TextView desc = (TextView) rowView.findViewById(R.id.description);
         TextView time = (TextView) rowView.findViewById(R.id.time);
         ImageView indicator = (ImageView) rowView.findViewById(R.id.indicator);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        Event currentEvent = events.get(groupPosition);
         if (currentEvent.getType() == EventType.LAP) {
             imageView.setImageResource(R.drawable.ic_round);
             if (isExpanded) {
@@ -102,7 +121,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         if (currentEvent.getType() == EventType.LAP) {
-            desc.setText("Round " + currentEvent.getLap());
+            desc.setText("Lap " + currentEvent.getLap());
         } else {
             desc.setText(currentEvent.getDesc());
         }
@@ -122,14 +141,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        System.out.println("GroupPosition "+groupPosition);
         final Event run = (Event) getChild(groupPosition, childPosition);
 
-        if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.timeline_expanded_list_item, null);
-        }
+        LayoutInflater layoutInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = layoutInflater.inflate(R.layout.timeline_expanded_list_item, null);
 
         TextView desc = (TextView) convertView.findViewById(R.id.name);
         desc.setText(run.getPerson().getName());
@@ -151,6 +167,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         if (run.getStartTime().isBefore(startTimeOfLoggedInUser)) {
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);  //0 means grayscale
+            ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
+            drawable.setColorFilter(cf);
             convertView.setAlpha((float) 0.4);
 
         }

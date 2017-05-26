@@ -1,6 +1,7 @@
 package com.skiday.app.skiday.timeline;
 
 import com.skiday.app.skiday.constants.Constants;
+import com.skiday.app.skiday.model.Event;
 import com.skiday.app.skiday.model.Person;
 import com.skiday.app.skiday.model.Results;
 
@@ -40,7 +41,7 @@ public class EventsData {
         rounds1.add(new Event(parseTime("11:10"), parseTime("11:15"), 1, persons.get(7)));
         rounds1.add(new Event(parseTime("11:20"), parseTime("11:25"), 1, persons.get(8)));
         rounds1.add(new Event(parseTime("11:30"), parseTime("11:35"), 1, persons.get(9)));
-        Collections.sort(rounds1);
+
         events.add(new Event(EventType.LAP, "Round 1", 1, "Start", rounds1));
 
         events.add(new Event(parseTime("10:40"), parseTime("10:55"), EventType.PRESS, "Press ATV", 0, "Room Press"));

@@ -1,8 +1,8 @@
-package com.skiday.app.skiday.timeline;
+package com.skiday.app.skiday.model;
 
 import android.support.annotation.NonNull;
 
-import com.skiday.app.skiday.model.Person;
+import com.skiday.app.skiday.timeline.EventType;
 
 import org.joda.time.DateTime;
 
