@@ -2,28 +2,25 @@ package com.skiday.app.skiday.timeline;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.TabHost;
 
 import com.skiday.app.skiday.R;
+import com.skiday.app.skiday.constants.EventType;
+import com.skiday.app.skiday.constants.FilterType;
 import com.skiday.app.skiday.model.Event;
+import com.skiday.app.skiday.model.EventsData;
 
 /**
  * Created by msio on 4/27/17.
@@ -105,7 +102,17 @@ public class TimelineFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
         ExpandableListView expandableListView = (ExpandableListView) view.findViewById(R.id.timeline_expandableListView);
-
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                Event event = expandableListAdapter.getGroup(groupPosition);
+                if (event.getType() != EventType.LAP) {
+                    Intent intent = new Intent(getActivity(), EventDetails.class);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);

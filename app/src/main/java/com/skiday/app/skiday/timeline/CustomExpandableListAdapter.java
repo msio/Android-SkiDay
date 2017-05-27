@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.constants.Constants;
+import com.skiday.app.skiday.constants.EventType;
 import com.skiday.app.skiday.model.Event;
+import com.skiday.app.skiday.model.EventsData;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

@@ -1,4 +1,4 @@
-package com.skiday.app.skiday.timeline;
+package com.skiday.app.skiday.constants;
 
 /**
  * Created by msio on 5/26/17.

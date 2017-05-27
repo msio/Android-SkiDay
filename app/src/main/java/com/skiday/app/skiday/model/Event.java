@@ -2,7 +2,7 @@ package com.skiday.app.skiday.model;
 
 import android.support.annotation.NonNull;
 
-import com.skiday.app.skiday.timeline.EventType;
+import com.skiday.app.skiday.constants.EventType;
 
 import org.joda.time.DateTime;
 

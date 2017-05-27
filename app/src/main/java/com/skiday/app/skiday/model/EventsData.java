@@ -1,6 +1,7 @@
-package com.skiday.app.skiday.timeline;
+package com.skiday.app.skiday.model;
 
 import com.skiday.app.skiday.constants.Constants;
+import com.skiday.app.skiday.constants.EventType;
 import com.skiday.app.skiday.model.Event;
 import com.skiday.app.skiday.model.Person;
 import com.skiday.app.skiday.model.Results;
@@ -9,7 +10,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by msio on 5/2/17.
