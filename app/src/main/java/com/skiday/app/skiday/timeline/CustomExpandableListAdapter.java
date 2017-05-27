@@ -41,13 +41,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     public void showOnlyLaps(boolean onlyLaps) {
         if (onlyLaps) {
-            System.out.print(events.size());
-            for (int i = 0; i < events.size(); i++) {
-                System.out.println(events.get(i).getType());
-                if (events.get(i).getType() != EventType.LAP) {
-                    events.remove(i);
+            ArrayList<Event> temp = new ArrayList<Event>(this.events);
+            for (Event event : temp) {
+                if (event.getType() != EventType.LAP) {
+                    events.remove(event);
                 }
-                events.remove(1);
             }
         } else {
             events = new ArrayList<Event>(allEvents);

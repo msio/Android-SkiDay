@@ -34,6 +34,7 @@ public class TimelineFragment extends Fragment {
     private Context context;
     private CustomExpandableListAdapter expandableListAdapter;
     private FilterType filterType = FilterType.ALL;
+    private FilterType lastFilterType = FilterType.ALL;
 
     public TimelineFragment() {
     }
@@ -65,7 +66,11 @@ public class TimelineFragment extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
-                    expandableListAdapter.showOnlyLaps(filterType == FilterType.LAPS ? true : false);
+                    if (filterType == FilterType.LAPS) {
+                        expandableListAdapter.showOnlyLaps(true);
+                    } else {
+                        expandableListAdapter.showOnlyLaps(false);
+                    }
                 }
             });
             final CharSequence[] items = {"All", "Laps"};
