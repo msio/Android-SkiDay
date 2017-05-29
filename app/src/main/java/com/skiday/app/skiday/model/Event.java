@@ -34,12 +34,14 @@ public class Event implements Comparable<Event>, Serializable {
         this.lap = lap;
     }
 
-    public Event(DateTime startTime, DateTime endTime, int lap, Person person) {
+    public Event(DateTime startTime, DateTime endTime,String desc,String location,int lap, Person person) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.type = EventType.LAP;
         this.lap = lap;
         this.person = person;
+        this.location = location;
+        this.desc = desc;
     }
 
 

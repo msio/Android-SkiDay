@@ -1,10 +1,19 @@
 package com.skiday.app.skiday.timeline;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
+import com.skiday.app.skiday.constants.Constants;
+import com.skiday.app.skiday.constants.EventType;
+import com.skiday.app.skiday.model.Event;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 
 /**
@@ -24,32 +33,30 @@ public class EventDetails extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_details);
-    }
+        Intent intent = getIntent();
+        Event event = (Event) intent.getSerializableExtra("event");
 
-    /*@Override
-    public void onViewCreated(View view, @Nullable final Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Event data = (Event) getArguments().getSerializable("selected");
-        TextView desc = (TextView) view.findViewById(R.id.description);
-        desc.setText(data.getDesc());
-        TextView roundLabel = (TextView) view.findViewById(R.id.roundLabel);
-//        TextView round = (TextView) view.findViewById(R.id.round);
+        TextView desc = (TextView) findViewById(R.id.description);
+        desc.setText(event.getDesc());
+        TextView lapLabel = (TextView) findViewById(R.id.lapLabel);
+        TextView lap = (TextView) findViewById(R.id.lap);
 
-//        if (data.getType() == EventType.LAP) {
-//            round.setText("" + data.getLap());
-//        } else {
-//            roundLabel.setVisibility(View.GONE);
-//            round.setVisibility(View.GONE);
-//        }
+        if (event.getType() == EventType.LAP) {
+            lap.setText(""+event.getLap());
+        } else {
+            lapLabel.setVisibility(View.GONE);
+            lap.setVisibility(View.GONE);
+        }
 
         DateTimeFormatter fmt = DateTimeFormat.forPattern(Constants.TIME_FORMAT);
-        TextView startTime = (TextView) view.findViewById(R.id.startTime);
-        startTime.setText(fmt.print(data.getStartTime()));
+        TextView startTime = (TextView) findViewById(R.id.startTime);
+        startTime.setText(fmt.print(event.getStartTime()));
 
-        TextView endTime = (TextView) view.findViewById(R.id.endTime);
-        endTime.setText(fmt.print(data.getEndTime()));
+        TextView endTime = (TextView) findViewById(R.id.endTime);
+        endTime.setText(fmt.print(event.getEndTime()));
 
-        TextView location = (TextView) view.findViewById(R.id.location);
-        location.setText(data.getLocation());
-    }*/
+        TextView location = (TextView) findViewById(R.id.location);
+        location.setText(event.getLocation());
+
+    }
 }

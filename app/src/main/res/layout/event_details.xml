@@ -21,10 +21,10 @@
         android:textSize="@dimen/details_value_text_size" />
 
     <TextView
-        android:id="@+id/roundLabel"
+        android:id="@+id/lapLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Round"
+        android:text="Lap"
         android:textColor="@color/colorDetailsLabel"
         android:textSize="@dimen/details_label_text_size" />
 

@@ -74,7 +74,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition) {
+    public Event getChild(int groupPosition, int childPosition) {
         return this.events.get(groupPosition).getRunsInLap().get(childPosition);
     }
 

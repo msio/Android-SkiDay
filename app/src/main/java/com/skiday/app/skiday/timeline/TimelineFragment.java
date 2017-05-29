@@ -108,8 +108,19 @@ public class TimelineFragment extends Fragment {
                 Event event = expandableListAdapter.getGroup(groupPosition);
                 if (event.getType() != EventType.LAP) {
                     Intent intent = new Intent(getActivity(), EventDetails.class);
+                    intent.putExtra("event", event);
                     startActivity(intent);
                 }
+                return false;
+            }
+        });
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Event event = expandableListAdapter.getChild(groupPosition, childPosition);
+                Intent intent = new Intent(getActivity(), EventDetails.class);
+                intent.putExtra("event", event);
+                startActivity(intent);
                 return false;
             }
         });
