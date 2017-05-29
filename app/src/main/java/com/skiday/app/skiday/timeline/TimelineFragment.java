@@ -109,6 +109,7 @@ public class TimelineFragment extends Fragment {
                 if (event.getType() != EventType.LAP) {
                     Intent intent = new Intent(getActivity(), EventDetails.class);
                     intent.putExtra("event", event);
+                    intent.putExtra("test","test");
                     startActivity(intent);
                 }
                 return false;
@@ -141,5 +142,4 @@ public class TimelineFragment extends Fragment {
         // Convert the dps to pixels, based on density scale
         return (int) (pixels * scale + 0.5f);
     }
-
 }

@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.skiday.app.skiday.MainActivity;
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.constants.Constants;
 import com.skiday.app.skiday.constants.EventType;
+import com.skiday.app.skiday.constants.NavigationTab;
 import com.skiday.app.skiday.model.Event;
 
 import org.joda.time.format.DateTimeFormat;
@@ -32,6 +34,7 @@ public class EventDetails extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.navigationTab = NavigationTab.TIMELINE;
         setContentView(R.layout.event_details);
         Intent intent = getIntent();
         Event event = (Event) intent.getSerializableExtra("event");
@@ -57,6 +60,6 @@ public class EventDetails extends AppCompatActivity {
 
         TextView location = (TextView) findViewById(R.id.location);
         location.setText(event.getLocation());
-
     }
+
 }

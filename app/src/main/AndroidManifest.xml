@@ -17,7 +17,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".timeline.EventDetails" android:label="@string/title_event_details" android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".timeline.EventDetails"
+            android:label="@string/title_event_details"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ranking.RankDetails"
+            android:label="@string/title_rank_details"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

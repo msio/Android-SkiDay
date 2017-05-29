@@ -1,6 +1,5 @@
 package com.skiday.app.skiday;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,17 +10,17 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.skiday.app.skiday.constants.NavigationTab;
 import com.skiday.app.skiday.feedback.FeedbackFragment;
 import com.skiday.app.skiday.login.LoginActivity;
 import com.skiday.app.skiday.model.Results;
-import com.skiday.app.skiday.ranking.RankDetailFragment;
+import com.skiday.app.skiday.ranking.RankDetails;
 import com.skiday.app.skiday.ranking.RankingFragment;
 import com.skiday.app.skiday.settings.SettingsFragment;
 import com.skiday.app.skiday.social.SocialFragment;
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "MainActivity";
     private static int ownId = 1; // Marcel Hirscher is the current user
+    public static NavigationTab navigationTab = NavigationTab.TIMELINE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +47,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         disableShiftMode(navigation);
 
+        if (savedInstanceState != null) {
+            System.out.println("DETAILS " + savedInstanceState.getString("details"));
+        }
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, TimelineFragment.newInstance());
+        if (navigationTab == NavigationTab.RANKING) {
+            transaction.replace(R.id.content, RankingFragment.newInstance());
+            navigation.setSelectedItemId(R.id.menu_ranking);
+        } else if (navigationTab == NavigationTab.TIMELINE) {
+            transaction.replace(R.id.content, TimelineFragment.newInstance());
+            navigation.setSelectedItemId(R.id.menu_timeline);
+        }
         transaction.commit();
     }
 
     /**
      * shows always icon with title in bottom navigation
+     *
      * @param view
      */
     private static void disableShiftMode(BottomNavigationView view) {
@@ -163,10 +174,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         int id = (int) (Math.random() * 10) % count;
 
-        RankDetailFragment fragment = RankDetailFragment.newInstance(id, 2, true);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, fragment);
-        transaction.addToBackStack("rankDetail").commit();
+        Intent intent = new Intent(this, RankDetails.class);
+        intent.putExtra("rankId", id);
+        intent.putExtra("rankLapNumber", 2);
+        intent.putExtra("live", true);
+        startActivity(intent);
+
 
     }
 }

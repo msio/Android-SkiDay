@@ -1,10 +1,11 @@
 package com.skiday.app.skiday.ranking;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.skiday.app.skiday.MainActivity;
 import com.skiday.app.skiday.R;
+import com.skiday.app.skiday.constants.NavigationTab;
 import com.skiday.app.skiday.model.MeantimeResultLine;
 import com.skiday.app.skiday.model.Person;
 import com.skiday.app.skiday.model.PersonResult;
@@ -20,10 +23,10 @@ import com.skiday.app.skiday.model.Results;
 
 /**
  * Show details of a run.
- *
+ * <p>
  * Created by jan on 03.05.17.
  */
-public class RankDetailFragment extends Fragment {
+public class RankDetails extends AppCompatActivity {
 
     private static final String TAG = "RankingDetailFragment";
 
@@ -32,61 +35,47 @@ public class RankDetailFragment extends Fragment {
     private Person person;
     private boolean live = false;
 
-    public static RankDetailFragment newInstance(int id, int lapNumber, boolean live) {
-        Log.i(TAG, "newInstance: "+id);
-        RankDetailFragment fragment = new RankDetailFragment();
-        fragment.setId(id);
-        fragment.setLapNumber(lapNumber);
-        fragment.setLive(live);
-        return fragment;
-    }
+    private MeantimeResultLine meanTime1;
+    private MeantimeResultLine meanTime2;
+    private MeantimeResultLine meanTime3;
+    private MeantimeResultLine meanTime4;
 
-    public void setLive(boolean live){
+    public void setLive(boolean live) {
         this.live = live;
     }
-    public void setLapNumber(int lapNumber){
+
+    public void setLapNumber(int lapNumber) {
         this.lapNumber = lapNumber;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        MainActivity.navigationTab = NavigationTab.RANKING;
+        setContentView(R.layout.rank_detail);
+        Intent intent = getIntent();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView: "+id);
+        id = intent.getExtras().getInt("rankId");
+        lapNumber = intent.getExtras().getInt("rankLapNumber");
+        live = intent.getExtras().getBoolean("live");
+
         person = Results.getResults().getPersons().get(id);
 
-        return inflater.inflate(R.layout.fragment_rank_detail, container, false);
-    }
-
-    MeantimeResultLine meanTime1;
-    MeantimeResultLine meanTime2;
-    MeantimeResultLine meanTime3;
-    MeantimeResultLine meanTime4;
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.i(TAG, "onViewCreated: ");
-
-        TextView field = (TextView) view.findViewById (R.id.name);
+        TextView field = (TextView) findViewById(R.id.name);
         field.setText(person.getName());
 
-        field = (TextView) view.findViewById (R.id.rank_detail_lap);
+        field = (TextView) findViewById(R.id.rank_detail_lap);
         field.setText(lapNumber + ". Lap");
 
         MeantimeResultLine result3 = Results.getResults().getMeantimeResultLine(id, lapNumber, 4);
-        field = (TextView) view.findViewById (R.id.current_time);
+        field = (TextView) findViewById(R.id.current_time);
         field.setText(PersonResult.timeToString(result3.getTime()));
 
-        ImageView profile = (ImageView) view.findViewById (R.id.profile_image);
+        ImageView profile = (ImageView) findViewById(R.id.profile_image);
         Drawable drawable = getResources().getDrawable(person.getPictureId());
         profile.setImageDrawable(drawable);
 
@@ -96,24 +85,25 @@ public class RankDetailFragment extends Fragment {
         meanTime3 = Results.getResults().getMeantimeResultLine(id, lapNumber, 3);
         meanTime4 = Results.getResults().getMeantimeResultLine(id, lapNumber, 4);
 
-        if (live)
-            startLive(view);
-        else
-            showResult(view);
+        if (live) {
+            startLive();
+        } else {
+            showResult();
+        }
     }
 
-    public void showResult(View view){
-        fillMeantimeView(view, 1, meanTime1);
-        fillMeantimeView(view, 2, meanTime2);
-        fillMeantimeView(view, 3, meanTime3);
-        fillMeantimeView(view, 4, meanTime4);
+    public void showResult() {
+        fillMeantimeView(1, meanTime1);
+        fillMeantimeView(2, meanTime2);
+        fillMeantimeView(3, meanTime3);
+        fillMeantimeView(4, meanTime4);
     }
 
-    private void fillMeantimeView(View view, int meanTime, MeantimeResultLine result){
+    private void fillMeantimeView(int meanTime, MeantimeResultLine result) {
 
         int time = 0, best = 0, me = 0;
 
-        switch (meanTime){
+        switch (meanTime) {
             case 1:
                 time = R.id.rank_detail_m1_time;
                 best = R.id.rank_detail_m1_best;
@@ -136,22 +126,20 @@ public class RankDetailFragment extends Fragment {
                 break;
         }
 
-        TextView field = (TextView) view.findViewById(time);
+        TextView field = (TextView) findViewById(time);
         field.setText(PersonResult.timeToString(result.getTime()));
 
-        field = (TextView) view.findViewById(best);
+        field = (TextView) findViewById(best);
         field.setText(PersonResult.timeToString(result.getRelBest()));
 
-        field = (TextView) view.findViewById(me);
+        field = (TextView) findViewById(me);
         field.setText(PersonResult.timeToString(result.getRelMe()));
     }
 
     /**
      * Start live-move.
-     *
-     * @param view
      */
-    public void startLive(final View view){
+    public void startLive() {
 
         final int millis = meanTime4.getTime() * 10;
 
@@ -159,9 +147,9 @@ public class RankDetailFragment extends Fragment {
         final int mTime2 = meanTime2.getTime();
         final int mTime3 = meanTime3.getTime();
 
-        Log.i(TAG, "startLive: "+mTime1);
+        Log.i(TAG, "startLive: " + mTime1);
 
-        currentTime = (TextView) view.findViewById (R.id.current_time);
+        currentTime = (TextView) findViewById(R.id.current_time);
 
         CountDownTimer timer = new CountDownTimer(millis, 10) {
             boolean mt1 = false, mt2 = false, mt3 = false;
@@ -169,29 +157,29 @@ public class RankDetailFragment extends Fragment {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                long seconds = millisUntilFinished/10;
-                long countUp = (millis/10)-seconds;
+                long seconds = millisUntilFinished / 10;
+                long countUp = (millis / 10) - seconds;
                 setClock(countUp);
 
                 long millisCounting = millis - millisUntilFinished;
 
-                if (!mt1 && (millisCounting > (mTime1*10))){
+                if (!mt1 && (millisCounting > (mTime1 * 10))) {
                     // show Meantime1
-                    fillMeantimeView(view, 1, meanTime1);
+                    fillMeantimeView(1, meanTime1);
                     Log.i(TAG, "Show meantime 1");
                     mt1 = true;
                 }
 
-                if (!mt2 && (millisCounting > (mTime2*10))){
+                if (!mt2 && (millisCounting > (mTime2 * 10))) {
                     // show Meantime 2
-                    fillMeantimeView(view, 2, meanTime2);
+                    fillMeantimeView(2, meanTime2);
                     Log.i(TAG, "Show meantime 2");
                     mt2 = true;
                 }
 
-                if (!mt3 && (millisCounting > (mTime3*10))){
+                if (!mt3 && (millisCounting > (mTime3 * 10))) {
                     // show Meantime 3
-                    fillMeantimeView(view, 3, meanTime3);
+                    fillMeantimeView(3, meanTime3);
                     Log.i(TAG, "Show meantime 3");
                     mt3 = true;
                 }
@@ -200,8 +188,8 @@ public class RankDetailFragment extends Fragment {
             @Override
             public void onFinish() {
                 Log.i(TAG, "onFinish: ");
-                fillMeantimeView(view, 4, meanTime4);
-                setClock(millis/10);
+                fillMeantimeView(4, meanTime4);
+                setClock(millis / 10);
             }
         };
         timer.start();
@@ -212,9 +200,11 @@ public class RankDetailFragment extends Fragment {
 
     /**
      * Setting the clock-view to the value.
+     *
      * @param millis
      */
-    public void setClock(long millis){
+    public void setClock(long millis) {
         currentTime.setText(PersonResult.timeToString2((int) millis));
     }
+
 }
