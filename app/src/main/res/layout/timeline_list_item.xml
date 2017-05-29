@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="72dp">
+    android:minHeight="72dp"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/icon"
@@ -13,6 +14,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp" />
 
+
     <LinearLayout
         android:id="@+id/textview_container"
         android:layout_width="match_parent"
@@ -21,8 +23,8 @@
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@+id/icon"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
-        android:paddingTop="16dp">
+        android:paddingBottom="25dp"
+        android:paddingTop="25dp">
 
         <TextView
             android:id="@+id/time"
@@ -34,8 +36,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/indicator"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"/>
 
 </RelativeLayout>

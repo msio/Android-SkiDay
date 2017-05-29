@@ -1,10 +1,12 @@
 package com.skiday.app.skiday.model;
 
+import java.io.Serializable;
+
 /**
  * Created by jan on 15.05.17.
  */
 
-public class Person {
+public class Person implements Serializable {
 
     private String name;
     private int pictureId;
