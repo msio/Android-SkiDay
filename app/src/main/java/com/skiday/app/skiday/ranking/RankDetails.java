@@ -65,6 +65,10 @@ public class RankDetails extends AppCompatActivity {
 
         person = Results.getResults().getPersons().get(id);
 
+        if (person == null) {
+            person = Results.getResults().getPersons().get(1);
+        }
+
         TextView field = (TextView) findViewById(R.id.name);
         field.setText(person.getName());
 
