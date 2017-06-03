@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.skiday.app.skiday.R;
 
 
-class SocialImageCardView extends SimpleSocialCardView {
+public class SocialImageCardView extends SimpleSocialCardView {
     protected Button instagramButton;
     protected ImageView image;
 
