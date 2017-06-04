@@ -40,4 +40,16 @@
                 app:numberOfComments="10"/>
         </LinearLayout>
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_create_social_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+
+        android:layout_gravity="right|bottom"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add" />
 </FrameLayout>

@@ -17,8 +17,4 @@
         android:title="@string/menu_social"
         android:icon="@drawable/ic_social" />
 
-    <item
-        android:id="@+id/menu_feedback"
-        android:title="Feedback"
-        android:icon="@drawable/ic_feedback"/>
 </menu>

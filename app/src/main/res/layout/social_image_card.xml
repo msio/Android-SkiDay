@@ -1,6 +1,5 @@
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,13 +11,40 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/aus" />
+
+
+        <TextView
+            android:id="@+id/geolocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/flag"
+
+            android:layout_marginLeft="4dp"
+            android:text="Kitzbühl"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="3h ago"
+            android:textSize="10dp" />
+
+        <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
 
+            android:layout_below="@id/timestamp"
             android:scaleType="centerCrop"
             android:src="@drawable/example_selfie" />
-
 
         <View
             android:id="@+id/divider"
@@ -26,81 +52,83 @@
             android:layout_height="1dp"
 
             android:layout_below="@id/image"
-            android:layout_marginBottom = "1dp"
+            android:layout_marginBottom="1dp"
 
             android:layout_marginTop="1dp"
 
             android:background="#787878" />
 
-        <TableLayout
+        <LinearLayout
+            android:id="@+id/feedback_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/divider"
-            android:stretchColumns="0,1,2">
+            android:layout_below="@id/divider">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:padding="3dp">
+            <Button
+                android:id="@+id/facebook_button"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
 
-                <Button
-                    android:id="@+id/facebook_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
+                android:layout_marginRight="10dp"
 
-                    android:background="#00FFFFFF"
+                android:background="#00FFFFFF"
+                android:drawableLeft="@drawable/facebook_icon"
 
-                    android:drawableLeft="@drawable/facebook_icon"
-                    android:onClick="feedbackButtonOnClick"
-                    android:text="420 Likes" />
+                android:onClick="feedbackButtonOnClick"
+                android:text="420"
+                android:textSize="10dp" />
 
-                <Button
-                    android:id="@+id/instagram_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
+            <Button
+                android:id="@+id/instagram_button"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
 
-                    android:background="#00FFFFFF"
-                    android:drawableLeft="@drawable/instagram_icon"
+                android:layout_marginRight="10dp"
 
-                    android:onClick="feedbackButtonOnClick"
-                    android:text="69 Likes" />
-            </TableRow>
+                android:background="#00FFFFFF"
+                android:drawableLeft="@drawable/instagram_icon"
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:onClick="feedbackButtonOnClick"
+                android:text="69"
+                android:textSize="10dp" />
 
-                android:padding="3dp">
+            <Button
+                android:id="@+id/twitter_button"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
 
-                <Button
-                    android:id="@+id/twitter_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="0"
+                android:layout_marginRight="10dp"
 
-                    android:background="#00FFFFFF"
+                android:background="#00FFFFFF"
+                android:drawableLeft="@drawable/twitter_icon"
 
-                    android:drawableLeft="@drawable/twitter_icon"
+                android:onClick="feedbackButtonOnClick"
+                android:text="100"
+                android:textSize="10dp" />
 
-                    android:onClick="feedbackButtonOnClick"
-                    android:text="100 Retweets" />
+            <Button
+                android:id="@+id/comments_button"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
 
-                <Button
-                    android:id="@+id/comments_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
+                android:layout_marginRight="10dp"
 
-                    android:background="#00FFFFFF"
-                    android:drawableLeft="@drawable/comments_icon"
+                android:background="#00FFFFFF"
+                android:drawableLeft="@drawable/comments_icon"
 
-                    android:onClick="feedbackButtonOnClick"
+                android:onClick="feedbackButtonOnClick"
 
-                    android:text="300 Comments" />
-            </TableRow>
-        </TableLayout>
+                android:text="300"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/feedback_line"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore " />
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>
