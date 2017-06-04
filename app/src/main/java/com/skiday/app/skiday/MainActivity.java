@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_live);
         fab.setOnClickListener(this);
+        fab.hide(); //TODO: KILL ME
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -98,14 +99,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     selectedFragment = TimelineFragment.newInstance();
                     break;
                 case R.id.menu_social:
-                    selectedFragment = SocialFragment.newInstance();
+                    selectedFragment = FeedbackFragment.newInstance();
                     break;
                 case R.id.menu_ranking:
                     Log.i(TAG, "ranking selected");
                     selectedFragment = RankingFragment.newInstance();
                     break;
-                case R.id.menu_feedback:
-                    selectedFragment = FeedbackFragment.newInstance();
             }
             loadFragment(selectedFragment);
             return true;

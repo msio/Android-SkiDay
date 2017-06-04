@@ -41,7 +41,7 @@ public class SocialImageCardView extends SimpleSocialCardView {
         TypedArray additionalAttributes = context.obtainStyledAttributes(attrs, R.styleable.SocialImageCardView);
 
 
-        this.instagramButton.setText(additionalAttributes.getInt(R.styleable.SocialImageCardView_instagramLikes, 0) + " Likes");
+        this.instagramButton.setText(additionalAttributes.getInt(R.styleable.SocialImageCardView_instagramLikes, 0) + "");
         this.image.setImageResource(additionalAttributes.getResourceId(R.styleable.SocialImageCardView_imageReference, R.drawable.example_selfie));
     }
 }

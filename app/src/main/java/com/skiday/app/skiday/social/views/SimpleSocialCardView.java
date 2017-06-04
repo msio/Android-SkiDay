@@ -42,8 +42,8 @@ public class SimpleSocialCardView extends AbstractSocialCardView {
         assert(this.twitterButton != null);
         assert(this.commentsButton != null);
 
-        this.facebookButton.setText(this.attributes.getInt(R.styleable.SimpleSocialCardView_facebookLikes, 0) + " Likes");
-        this.twitterButton.setText(this.attributes.getInt(R.styleable.SimpleSocialCardView_twitterLikes, 0) + " Retweets");
-        this.commentsButton.setText(this.attributes.getInt(R.styleable.SimpleSocialCardView_numberOfComments, 0) + " Comments");
+        this.facebookButton.setText(this.attributes.getInt(R.styleable.SimpleSocialCardView_facebookLikes, 0) + "");
+        this.twitterButton.setText(this.attributes.getInt(R.styleable.SimpleSocialCardView_twitterLikes, 0) + "");
+        this.commentsButton.setText(this.attributes.getInt(R.styleable.SimpleSocialCardView_numberOfComments, 0) + "");
     }
 }

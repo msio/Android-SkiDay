@@ -19,7 +19,7 @@ import com.skiday.app.skiday.R;
  * Created by msio on 4/27/17.
  */
 
-public class SocialFragment extends Fragment {
+public class SocialFragment extends Fragment implements View.OnClickListener{
     private ImageButton cameraButton;
     private ImageButton attachmentButton;
     private ImageView imageView;
@@ -96,4 +96,8 @@ public class SocialFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        //TODO: New Post
+    }
 }
