@@ -12,4 +12,7 @@
     <color name="colorRankTableRed">#c83737</color>
     <color name="colorRankTableGreen">#89a02c</color>
     <color name="colorRankTableBackground">#ecf8fb</color>
+    <color name="colorRankNegative">#d35f5f</color>
+    <color name="colorRankPositive">#89a02c</color>
+
 </resources>
