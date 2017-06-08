@@ -124,7 +124,7 @@ public class Results {
         relBest = currentMeantimeResult.getTime() - best.getTime();
         relMe = currentMeantimeResult.getTime() - me.getTime();
 
-        MeantimeResultLine line = new MeantimeResultLine(currentMeantimeResult.getTime(), relBest, relMe, getPersons().get(best.getId()), getPersons().get(currentMeantimeResult.getId()));
+        MeantimeResultLine line = new MeantimeResultLine(currentMeantimeResult.getTime(), relBest, relMe, best.getTime(), me.getTime(), getPersons().get(best.getId()), getPersons().get(currentMeantimeResult.getId()));
 
         return line;
     }

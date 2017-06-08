@@ -49,242 +49,367 @@
         android:id="@+id/current_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1:19:85"
-        android:textSize="36sp"
-        android:textColor="@color/colorPrimary"
-        android:textAlignment="center"
+        android:layout_marginBottom="20sp"
         android:layout_marginTop="20sp"
-        android:layout_marginBottom="20sp"/>
+        android:text="1:19:85"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="36sp" />
 
     <TableLayout
         android:id="@+id/intermed_results"
         android:layout_width="match_parent"
-        android:layout_height="315dp">
+        android:minHeight="70dp"
+        android:layout_height="match_parent">
         <TableRow
-            android:layout_marginBottom="10sp">
+            android:paddingLeft="10dp"
+            android:layout_marginBottom="5sp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text=""
-                android:textSize="12sp"
+                android:minWidth="60dp"
                 android:layout_marginTop="10sp"
                 >
             </TextView>
             <TextView
-                android:layout_width="30dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="12sp"
                 android:textColor="#8a000000"
-                android:layout_gravity="bottom|right"
+                android:minWidth="100sp"
                 android:layout_marginTop="10sp"
-                android:text="Time">
+                android:textAlignment="textEnd"
+                android:layout_gravity="end|bottom"
+                android:text="Best of Lap">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Δ Best"
+                android:text="Time"
                 android:textSize="12sp"
-                android:layout_gravity="end|bottom"
+                android:minWidth="120dp"
+                android:textAlignment="center"
+                android:layout_gravity="center|bottom"
                 android:layout_marginTop="10sp"
                 android:textColor="#8a000000">
             </TextView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Δ Me"
+                android:text="Hirscher"
                 android:textSize="12sp"
-                android:minWidth="50sp"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end|bottom"
+                android:minWidth="80sp"
+                android:textAlignment="textStart"
+                android:layout_gravity="start|bottom"
                 android:layout_marginTop="10sp"
                 android:textColor="#8a000000">
             </TextView>
         </TableRow>
+
+
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_marginBottom="10sp"
+            android:minHeight="50dp"
+            android:paddingLeft="10dp">
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="bottom"
+                android:layout_height="match_parent"
                 android:text="1. Meantime"
-                android:textSize="13sp"
-                android:textColor="#8a000000"
-                android:paddingRight="30dp"
+                android:textSize="12sp"
+                android:layout_marginTop="10sp"
                 >
             </TextView>
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m1_best_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorRankTableHeader"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="10sp"
+                    android:text="20,00">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m1_best_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
+
             <TextView
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
                 android:id="@+id/rank_detail_m1_time"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:textSize="16sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
-            <TextView
-                android:layout_width="70dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rank_detail_m1_best"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:textSize="13sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
+                android:text="20,74"
+                android:textSize="20sp"
+                android:layout_gravity="center|bottom"
+                android:textAlignment="center"
+                android:layout_marginTop="10sp"
+                android:textColor="@color/colorRankTableFieldText">
             </TextView>
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:id="@+id/rank_detail_m1_me"
-                android:textSize="13sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
+
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m1_me_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="23,93"
+                    android:textSize="16sp"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="10sp"
+                    android:textColor="@color/colorRankTableHeader">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m1_me_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_marginBottom="10sp"
+            android:minHeight="50dp"
+            android:background="@color/colorRankTableBackground"
+            android:paddingLeft="10dp"
+            >
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="2. Meantime"
-                android:textSize="13sp"
-                android:textColor="#8a000000"
+                android:textSize="12sp"
+                android:layout_marginTop="10sp"
                 >
             </TextView>
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m2_best_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorRankTableHeader"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="10sp"
+                    android:text="20,00">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m2_best_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
+
             <TextView
-                android:layout_height="match_parent"
                 android:id="@+id/rank_detail_m2_time"
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:textSize="16sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
-            <TextView
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rank_detail_m2_best"
-                android:textSize="13sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
+                android:text="20,74"
+                android:textSize="20sp"
+                android:layout_gravity="center|bottom"
+                android:textAlignment="center"
+                android:layout_marginTop="10sp"
+                android:textColor="@color/colorRankTableFieldText">
             </TextView>
-            <TextView
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:layout_height="match_parent"
-                android:id="@+id/rank_detail_m2_me"
-                android:textSize="13sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
+
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m2_me_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="23,93"
+                    android:textSize="16sp"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="10sp"
+                    android:textColor="@color/colorRankTableHeader">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m2_me_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_marginBottom="10sp"
+            android:minHeight="50dp"
+            android:paddingLeft="10dp">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="3. Meantime"
-                android:textSize="13sp"
-                android:textColor="#8a000000"
+                android:textSize="12sp"
+                android:layout_marginTop="10sp"
                 >
             </TextView>
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m3_best_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorRankTableHeader"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="10sp"
+                    android:text="20,00">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m3_best_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
+
             <TextView
-                android:layout_height="match_parent"
                 android:id="@+id/rank_detail_m3_time"
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:textSize="16sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
-            <TextView
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rank_detail_m3_best"
-                android:textSize="13sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
+                android:text="20,74"
+                android:textSize="20sp"
+                android:layout_gravity="center|bottom"
+                android:textAlignment="center"
+                android:layout_marginTop="10sp"
+                android:textColor="@color/colorRankTableFieldText">
             </TextView>
-            <TextView
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:layout_height="match_parent"
-                android:id="@+id/rank_detail_m3_me"
-                android:textSize="13sp"
-                android:textColor="@color/colorRankTableFieldText"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
+
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m3_me_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="23,93"
+                    android:textSize="16sp"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="10sp"
+                    android:textColor="@color/colorRankTableHeader">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m3_me_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_marginBottom="10sp"
+            android:minHeight="50dp"
+            android:background="@color/colorRankTableBackground"
+            android:paddingLeft="10dp"
+            >
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="Total"
-                android:textSize="13sp"
-                android:textColor="#8a000000"
+                android:textSize="12sp"
+                android:layout_marginTop="10sp"
                 >
             </TextView>
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m4_best_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorRankTableHeader"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="10sp"
+                    android:text="20,00">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m4_best_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
+
             <TextView
-                android:layout_height="match_parent"
                 android:id="@+id/rank_detail_m4_time"
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
-            <TextView
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/rank_detail_m4_best"
-                android:textSize="13sp"
-                android:textColor="@color/colorPrimary"
-                android:minWidth="50sp"
-                android:text="">
+                android:text="20,74"
+                android:textSize="20sp"
+                android:layout_gravity="center|bottom"
+                android:textAlignment="center"
+                android:layout_marginTop="10sp"
+                android:textColor="@color/colorPrimary">
             </TextView>
-            <TextView
-                android:layout_width="70dp"
-                android:layout_gravity="end"
-                android:textAlignment="textEnd"
-                android:layout_height="match_parent"
-                android:id="@+id/rank_detail_m4_me"
-                android:textSize="13sp"
-                android:textColor="@color/colorPrimary"
-                android:minWidth="50sp"
-                android:text="">
-            </TextView>
+
+            <LinearLayout android:orientation="vertical">
+                <TextView
+                    android:id="@+id/rank_detail_m4_me_abs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="23,93"
+                    android:textSize="16sp"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="10sp"
+                    android:textColor="@color/colorRankTableHeader">
+                </TextView>
+                <TextView
+                    android:id="@+id/rank_detail_m4_me_rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorRankPositive"
+                    android:textAlignment="textStart"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginTop="0sp"
+                    android:text="+00,74">
+                </TextView>
+            </LinearLayout>
         </TableRow>
     </TableLayout>
 

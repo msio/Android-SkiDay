@@ -105,39 +105,58 @@ public class RankDetails extends AppCompatActivity {
 
     private void fillMeantimeView(int meanTime, MeantimeResultLine result) {
 
-        int time = 0, best = 0, me = 0;
+        int time = 0, absBest = 0, relBest = 0, absMe = 0, relMe = 0;
 
         switch (meanTime) {
             case 1:
                 time = R.id.rank_detail_m1_time;
-                best = R.id.rank_detail_m1_best;
-                me = R.id.rank_detail_m1_me;
+                absBest = R.id.rank_detail_m1_best_abs;
+                absMe = R.id.rank_detail_m1_me_abs;
+                relBest = R.id.rank_detail_m1_best_rel;
+                relMe = R.id.rank_detail_m1_me_rel;
                 break;
             case 2:
                 time = R.id.rank_detail_m2_time;
-                best = R.id.rank_detail_m2_best;
-                me = R.id.rank_detail_m2_me;
+                absBest = R.id.rank_detail_m2_best_abs;
+                absMe = R.id.rank_detail_m2_me_abs;
+                relBest = R.id.rank_detail_m2_best_rel;
+                relMe = R.id.rank_detail_m2_me_rel;
                 break;
             case 3:
                 time = R.id.rank_detail_m3_time;
-                best = R.id.rank_detail_m3_best;
-                me = R.id.rank_detail_m3_me;
+                absBest = R.id.rank_detail_m3_best_abs;
+                absMe = R.id.rank_detail_m3_me_abs;
+                relBest = R.id.rank_detail_m3_best_rel;
+                relMe = R.id.rank_detail_m3_me_rel;
                 break;
             case 4:
                 time = R.id.rank_detail_m4_time;
-                best = R.id.rank_detail_m4_best;
-                me = R.id.rank_detail_m4_me;
+                absBest = R.id.rank_detail_m4_best_abs;
+                absMe = R.id.rank_detail_m4_me_abs;
+                relBest = R.id.rank_detail_m4_best_rel;
+                relMe = R.id.rank_detail_m4_me_rel;
                 break;
         }
 
         TextView field = (TextView) findViewById(time);
         field.setText(PersonResult.timeToString(result.getTime()));
 
-        field = (TextView) findViewById(best);
-        field.setText(PersonResult.timeToString(result.getRelBest()));
+        field = (TextView) findViewById(relBest);
+        field.setText(PersonResult.timeToRelativeString(result.getRelBest()));
+        if (result.getRelBest() > 0)
+            field.setTextColor(getResources().getColor(R.color.colorRankNegative));
 
-        field = (TextView) findViewById(me);
-        field.setText(PersonResult.timeToString(result.getRelMe()));
+        field = (TextView) findViewById(absBest);
+        field.setText(PersonResult.timeToString(result.getAbsoluteTimeBest()));
+
+        field = (TextView) findViewById(relMe);
+        field.setText(PersonResult.timeToRelativeString(result.getRelMe()));
+        if (result.getRelMe() > 0)
+            field.setTextColor(getResources().getColor(R.color.colorRankNegative));
+
+        field = (TextView) findViewById(absMe);
+        field.setText(PersonResult.timeToString(result.getAbsoluteTimeMe()));
+
     }
 
     /**

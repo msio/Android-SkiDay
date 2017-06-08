@@ -7,17 +7,37 @@ package com.skiday.app.skiday.model;
 public class MeantimeResultLine {
 
     private int time;
+    private int absoluteTimeBest;
+    private int absoluteTimeMe;
     private int relBest;
     private int relMe;
     private Person best;
     private Person person;
 
-    public MeantimeResultLine(int time, int relBest, int relMe, Person best, Person person) {
+    public MeantimeResultLine(int time, int relBest, int relMe, int absoluteTimeBest, int absoluteTimeMe, Person best, Person person) {
         this.time = time;
         this.relBest = relBest;
         this.relMe = relMe;
         this.best = best;
         this.person = person;
+        this.absoluteTimeBest = absoluteTimeBest;
+        this.absoluteTimeMe = absoluteTimeMe;
+    }
+
+    public int getAbsoluteTimeBest() {
+        return absoluteTimeBest;
+    }
+
+    public void setAbsoluteTimeBest(int absoluteTimeBest) {
+        this.absoluteTimeBest = absoluteTimeBest;
+    }
+
+    public int getAbsoluteTimeMe() {
+        return absoluteTimeMe;
+    }
+
+    public void setAbsoluteTimeMe(int absoluteTimeMe) {
+        this.absoluteTimeMe = absoluteTimeMe;
     }
 
     public Person getPerson() {
