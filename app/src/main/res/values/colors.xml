@@ -9,4 +9,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorRankTableFieldText">#de000000</color>
     <color name="colorRankTableHeader">#8a000000</color>
+    <color name="colorRankTableRed">#c83737</color>
+    <color name="colorRankTableGreen">#89a02c</color>
+    <color name="colorRankTableBackground">#ecf8fb</color>
 </resources>
