@@ -22,7 +22,7 @@ import com.skiday.app.skiday.login.LoginActivity;
 import com.skiday.app.skiday.model.Results;
 import com.skiday.app.skiday.ranking.RankDetails;
 import com.skiday.app.skiday.ranking.RankingFragment;
-import com.skiday.app.skiday.settings.SettingsFragment;
+import com.skiday.app.skiday.settings.SettingsActivity;
 import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
 
@@ -150,11 +150,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (item.getItemId()) {
             case R.id.logout_button:
 
-                Intent Intent = new Intent(this, LoginActivity.class);
-                startActivity(Intent);
+                Intent Intent1 = new Intent(this, LoginActivity.class);
+                startActivity(Intent1);
                 break;
             case R.id.settings_button:
-                loadFragment(new SettingsFragment());
+                Intent Intent2 = new Intent(this, SettingsActivity.class);
+                startActivity(Intent2);
                 break;
 
         }

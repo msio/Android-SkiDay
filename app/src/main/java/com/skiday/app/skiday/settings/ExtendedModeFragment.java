@@ -3,6 +3,7 @@ package com.skiday.app.skiday.settings;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,22 +15,17 @@ import android.widget.Switch;
 
 import com.skiday.app.skiday.R;
 
-public class ExtendedModeFragment extends Fragment{
+public class ExtendedModeFragment extends PreferenceFragment {
     private EditText teamServerEditText;
     private EditText timelineTeamEditText;
     private Switch enable_switch;
-
-    public static ExtendedModeFragment newInstance() {
-        ExtendedModeFragment fragment = new ExtendedModeFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
+   /* @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_extended_mode, container, false);
@@ -61,5 +57,5 @@ public class ExtendedModeFragment extends Fragment{
         this.timelineTeamEditText.setText("");
         this.teamServerEditText.setFocusable(state);
         this.teamServerEditText.setText("");
-    }
+    }*/
 }

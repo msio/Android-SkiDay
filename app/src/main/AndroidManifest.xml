@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".settings.SettingsActivity" android:label="Settings" android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".timeline.EventDetails"
             android:label="@string/title_event_details"
