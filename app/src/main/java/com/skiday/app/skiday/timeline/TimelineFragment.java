@@ -107,7 +107,7 @@ public class TimelineFragment extends Fragment {
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 Event event = expandableListAdapter.getGroup(groupPosition);
                 if (event.getType() != EventType.LAP) {
-                    Intent intent = new Intent(getActivity(), EventDetails.class);
+                    Intent intent = new Intent(getActivity(), EventDetailsActivity.class);
                     intent.putExtra("event", event);
                     intent.putExtra("test","test");
                     startActivity(intent);
@@ -119,7 +119,7 @@ public class TimelineFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Event event = expandableListAdapter.getChild(groupPosition, childPosition);
-                Intent intent = new Intent(getActivity(), EventDetails.class);
+                Intent intent = new Intent(getActivity(), EventDetailsActivity.class);
                 intent.putExtra("event", event);
                 startActivity(intent);
                 return false;

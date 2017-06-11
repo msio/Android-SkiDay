@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:summary="Please note that the Managed-Mode is meant for athletes with a Social Media Team behind them."
-        android:icon="@drawable/ic_extended_mode"
-        android:key="extended_mode_key"
-        android:title="Extended Mode"></PreferenceScreen>
+        android:icon="@drawable/ic_managed_mode"
+        android:summary="Please note that the Managed Mode is meant for athletes with a Social Media Team behind them."
+        android:title="Managed Mode">
+    <intent android:action=".settings.ExtendedModeActivity"/>
+    </PreferenceScreen>
     <PreferenceScreen
         android:icon="@drawable/ic_change_password"
         android:key="change_password_key"

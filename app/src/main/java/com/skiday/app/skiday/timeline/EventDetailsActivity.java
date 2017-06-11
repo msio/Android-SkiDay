@@ -22,12 +22,12 @@ import org.joda.time.format.DateTimeFormatter;
  * Created by msio on 5/2/17.
  */
 
-public class EventDetails extends AppCompatActivity {
+public class EventDetailsActivity extends AppCompatActivity {
 
-    private static final String TAG = "EventDetails";
+    private static final String TAG = "EventDetailsActivity";
 
-    public static EventDetails newInstance() {
-        EventDetails fragment = new EventDetails();
+    public static EventDetailsActivity newInstance() {
+        EventDetailsActivity fragment = new EventDetailsActivity();
         return fragment;
     }
 
@@ -35,7 +35,7 @@ public class EventDetails extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.navigationTab = NavigationTab.TIMELINE;
-        setContentView(R.layout.event_details);
+        setContentView(R.layout.activity_event_details);
         Intent intent = getIntent();
         Event event = (Event) intent.getSerializableExtra("event");
 
