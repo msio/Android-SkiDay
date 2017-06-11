@@ -66,6 +66,10 @@ public class PersonResult {
         this.name = name;
     }
 
+    public static String timeToRelativeString(int time){
+        return (time >=0) ? "+"+timeToString(time) : timeToString(time);
+    }
+
     public static String timeToString(int time){
         String timeString = "";
         int min, sec, milli;
