@@ -70,7 +70,9 @@
         android:layout_weight="0.31"
         android:ems="10"
         android:hint="What's on your mind?"
-        android:inputType="textMultiLine" />
+
+        android:inputType="text"
+        android:maxLines="1" />
 
     <Button
         android:id="@+id/post_button"

@@ -28,7 +28,7 @@ public class SocialTextCardView extends SimpleSocialCardView {
     protected void initializeCardView(Context context, AttributeSet attrs, int layoutRef){
         super.initializeCardView(context, attrs, R.layout.social_text_card);
 
-        this.textView = (TextView)findViewById(R.id.text_post);
+        this.textView = (TextView)findViewById(R.id.post);
         assert(this.textView != null);
 
         TypedArray additionalArguemnts = context.obtainStyledAttributes(attrs, R.styleable.SocialTextCardView);
