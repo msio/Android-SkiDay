@@ -1,9 +1,15 @@
 package com.skiday.app.skiday.social;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +20,20 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.skiday.app.skiday.R;
+import com.skiday.app.skiday.feedback.FeedbackFragment;
+import com.skiday.app.skiday.social.views.AbstractSocialCardView;
+
+import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by msio on 4/27/17.
  */
 
-public class SocialFragment extends Fragment implements View.OnClickListener{
+public class SocialFragment extends Fragment{
+    private static final int CAMERA_PICTURE_REQUEST = 1;
+
     private ImageButton cameraButton;
     private ImageButton attachmentButton;
     private ImageView imageView;
@@ -64,8 +78,10 @@ public class SocialFragment extends Fragment implements View.OnClickListener{
         this.cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageView.setImageResource(R.drawable.example_selfie);
-                cancelButton.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(cameraIntent.resolveActivity(getActivity().getPackageManager()) != null){
+                    startActivityForResult(cameraIntent, CAMERA_PICTURE_REQUEST);
+                }
             }
         });
 
@@ -73,6 +89,8 @@ public class SocialFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 imageView.setImageResource(0);
+                imageView.setMaxHeight(1);
+                imageView.setMinimumHeight(1);
                 cancelButton.setImageResource(0);
             }
         });
@@ -97,7 +115,13 @@ public class SocialFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View v) {
-        //TODO: New Post
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == CAMERA_PICTURE_REQUEST && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap image = (Bitmap)extras.get("data");
+            imageView.setImageBitmap(image);
+            imageView.setMinimumHeight(600);
+            cancelButton.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+        }
     }
 }
