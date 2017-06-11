@@ -4,12 +4,13 @@
         android:icon="@drawable/ic_managed_mode"
         android:summary="Please note that the Managed Mode is meant for athletes with a Social Media Team behind them."
         android:title="Managed Mode">
-    <intent android:action=".settings.ExtendedModeActivity"/>
+        <intent android:action=".settings.ExtendedModeActivity" />
     </PreferenceScreen>
     <PreferenceScreen
         android:icon="@drawable/ic_change_password"
-        android:key="change_password_key"
-        android:title="Change Password"></PreferenceScreen>
+        android:title="Change Password">
+        <intent android:action=".settings.ChangePasswordActivity" />
+    </PreferenceScreen>
     <PreferenceScreen
         android:icon="@drawable/ic_notifications"
         android:title="Notifications"></PreferenceScreen>

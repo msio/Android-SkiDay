@@ -17,7 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".settings.SettingsActivity" android:label="Settings" android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".timeline.EventDetailsActivity"
             android:label="@string/title_event_details"
@@ -26,9 +29,21 @@
             android:name=".ranking.RankDetails"
             android:label="@string/title_rank_details"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".settings.ManagedModeActivity" android:label="Managed Mode" android:parentActivityName=".settings.SettingsActivity">
+        <activity
+            android:name=".settings.ManagedModeActivity"
+            android:label="Managed Mode"
+            android:parentActivityName=".settings.SettingsActivity">
             <intent-filter>
                 <action android:name=".settings.ExtendedModeActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".settings.ChangePasswordActivity"
+            android:label="Change Password"
+            android:parentActivityName=".settings.SettingsActivity">
+            <intent-filter>
+                <action android:name=".settings.ChangePasswordActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

@@ -17,9 +17,6 @@ import android.widget.Switch;
 import com.skiday.app.skiday.R;
 
 public class ManagedModeActivity extends AppCompatActivity {
-    private EditText teamServerEditText;
-    private EditText timelineTeamEditText;
-    private Switch enable_switch;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,38 +40,4 @@ public class ManagedModeActivity extends AppCompatActivity {
             }
         });
     }
-
-   /* @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_extended_mode, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        this.teamServerEditText = (EditText)view.findViewById(R.id.team_edit_text);
-        assert(this.teamServerEditText != null);
-
-        this.timelineTeamEditText = (EditText)view.findViewById(R.id.timeline_edit_text);
-        assert(this.timelineTeamEditText != null);
-
-
-        this.enable_switch = (Switch)view.findViewById(R.id.switch1);
-        assert(this.enable_switch != null);
-
-        this.enable_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                enableExtendedMode(isChecked);
-            }
-        });
-    }
-
-    public void enableExtendedMode(boolean state){
-        this.timelineTeamEditText.setFocusable(state);
-        this.timelineTeamEditText.setText("");
-        this.teamServerEditText.setFocusable(state);
-        this.teamServerEditText.setText("");
-    }*/
 }
