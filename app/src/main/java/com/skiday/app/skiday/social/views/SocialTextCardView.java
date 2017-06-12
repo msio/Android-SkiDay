@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.skiday.app.skiday.R;
 
 public class SocialTextCardView extends SimpleSocialCardView {
-    protected TextView textView;
 
     public SocialTextCardView(Context context) {
         super(context, R.layout.social_text_card);
@@ -28,9 +27,6 @@ public class SocialTextCardView extends SimpleSocialCardView {
     protected void initializeCardView(Context context, AttributeSet attrs, int layoutRef){
         super.initializeCardView(context, attrs, R.layout.social_text_card);
 
-        this.textView = (TextView)findViewById(R.id.post);
-        assert(this.textView != null);
-
         TypedArray additionalArguemnts = context.obtainStyledAttributes(attrs, R.styleable.SocialTextCardView);
         String textPost = additionalArguemnts.getString(R.styleable.SocialTextCardView_textPost);
 
@@ -40,6 +36,6 @@ public class SocialTextCardView extends SimpleSocialCardView {
 
         textPost = textPost.trim();
 
-        this.textView.setText(textPost);
+        setPostText(textPost);
     }
 }

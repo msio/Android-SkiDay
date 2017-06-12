@@ -2,17 +2,26 @@ package com.skiday.app.skiday.social.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
+
+import java.io.File;
 
 
 public class SocialImageCardView extends SimpleSocialCardView {
     protected Button instagramButton;
     protected ImageView image;
+    protected TextView geolocation;
+    protected ImageView flag;
 
     public SocialImageCardView(Context context) {
         super(context,  R.layout.social_image_card);
@@ -37,11 +46,31 @@ public class SocialImageCardView extends SimpleSocialCardView {
 
         this.image = (ImageView) findViewById(R.id.image);
         assert(this.image != null);
+        this.flag = (ImageView) findViewById(R.id.flag);
 
         TypedArray additionalAttributes = context.obtainStyledAttributes(attrs, R.styleable.SocialImageCardView);
 
+        this.geolocation = (TextView)findViewById(R.id.geolocation);
 
         this.instagramButton.setText(additionalAttributes.getInt(R.styleable.SocialImageCardView_instagramLikes, 0) + "");
         this.image.setImageResource(additionalAttributes.getResourceId(R.styleable.SocialImageCardView_imageReference, R.drawable.example_selfie));
+    }
+
+    public void setImageByPath(String path){
+        File file = new File(path);
+        if(!file.exists()){
+            Log.wtf("CardView", "Image not found");
+        }
+        Bitmap image = BitmapFactory.decodeFile(path);
+        this.image.setImageBitmap(image);
+    }
+
+    public void setInstagramLikes(String likes){
+        this.instagramButton.setText(likes);
+    }
+
+    public void setGeolocation(String geo, int resource) {
+        this.geolocation.setText(geo);
+        this.flag.setImageResource(resource);
     }
 }

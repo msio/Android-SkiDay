@@ -100,7 +100,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         View rowView = inflater.inflate(R.layout.timeline_list_item, parent, false);
         Event currentEvent = events.get(groupPosition);
 
-        TextView desc = (TextView) rowView.findViewById(R.id.description);
+        TextView desc = (TextView) rowView.findViewById(R.id.post);
         TextView time = (TextView) rowView.findViewById(R.id.time);
         ImageView indicator = (ImageView) rowView.findViewById(R.id.indicator);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);

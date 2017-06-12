@@ -14,7 +14,7 @@
         android:textSize="@dimen/details_label_text_size" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorDetailsValue"

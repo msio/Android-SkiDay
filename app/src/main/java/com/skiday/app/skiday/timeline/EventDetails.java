@@ -39,7 +39,7 @@ public class EventDetails extends AppCompatActivity {
         Intent intent = getIntent();
         Event event = (Event) intent.getSerializableExtra("event");
 
-        TextView desc = (TextView) findViewById(R.id.description);
+        TextView desc = (TextView) findViewById(R.id.post);
         desc.setText(event.getDesc());
         TextView lapLabel = (TextView) findViewById(R.id.lapLabel);
         TextView lap = (TextView) findViewById(R.id.lap);

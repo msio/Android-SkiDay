@@ -60,20 +60,6 @@
                 android:textSize="10dp" />
 
             <Button
-                android:id="@+id/instagram_button"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-
-                android:layout_marginRight="10dp"
-
-                android:background="#00FFFFFF"
-                android:drawableLeft="@drawable/instagram_icon"
-
-                android:onClick="feedbackButtonOnClick"
-                android:text="69"
-                android:textSize="10dp" />
-
-            <Button
                 android:id="@+id/twitter_button"
                 android:layout_width="50dp"
                 android:layout_height="30dp"

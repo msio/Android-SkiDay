@@ -1,6 +1,7 @@
 package com.skiday.app.skiday;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,8 +9,10 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +20,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.skiday.app.skiday.constants.NavigationTab;
+import com.skiday.app.skiday.dao.ISocialMediaDAO;
+import com.skiday.app.skiday.dao.SocialMediaDAO;
+import com.skiday.app.skiday.dao.SocialMediaDatabase;
 import com.skiday.app.skiday.feedback.FeedbackFragment;
 import com.skiday.app.skiday.login.LoginActivity;
 import com.skiday.app.skiday.model.Results;
@@ -27,12 +33,15 @@ import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
 
 import java.lang.reflect.Field;
+import java.util.jar.Manifest;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
     private static int ownId = 1; // Marcel Hirscher is the current user
     public static NavigationTab navigationTab = NavigationTab.TIMELINE;
+    private ISocialMediaDAO socialMediaDAO;
+    private SocialMediaDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +49,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         overridePendingTransition(0, 0);
         setContentView(R.layout.activity_main);
 
+
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_live);
         fab.setOnClickListener(this);
         fab.hide(); //TODO: KILL ME
+
+        database = new SocialMediaDatabase(this);
+        socialMediaDAO = new SocialMediaDAO(database);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -99,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     selectedFragment = TimelineFragment.newInstance();
                     break;
                 case R.id.menu_social:
-                    selectedFragment = FeedbackFragment.newInstance();
+                    selectedFragment = FeedbackFragment.newInstance(socialMediaDAO);
                     break;
                 case R.id.menu_ranking:
                     Log.i(TAG, "ranking selected");
@@ -178,7 +195,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("rankLapNumber", 2);
         intent.putExtra("live", true);
         startActivity(intent);
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        database.getDatabase().close();
     }
 }
