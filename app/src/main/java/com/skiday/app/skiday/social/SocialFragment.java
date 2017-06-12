@@ -3,27 +3,38 @@ package com.skiday.app.skiday.social;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.os.EnvironmentCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.skiday.app.skiday.R;
-import com.skiday.app.skiday.feedback.FeedbackFragment;
-import com.skiday.app.skiday.social.views.AbstractSocialCardView;
+import com.skiday.app.skiday.dao.ISocialMediaDAO;
+import com.skiday.app.skiday.dao.SocialMediaPostContract;
+import com.skiday.app.skiday.dto.SocialMediaAttachment;
+import com.skiday.app.skiday.dto.SocialMediaFeedback;
+import com.skiday.app.skiday.dto.SocialMediaPostDTO;
 
-import java.util.List;
+import org.joda.time.LocalDateTime;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -32,17 +43,34 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class SocialFragment extends Fragment{
+    public static final String DEBUGING_EXAMPLE_LOCATION = "aus";
+
     private static final int CAMERA_PICTURE_REQUEST = 1;
+    private static final int GALLERY_PICTURE_REQUEST = 2;
 
     private ImageButton cameraButton;
     private ImageButton attachmentButton;
     private ImageView imageView;
     private ImageButton cancelButton;
     private Button postButton;
+    private EditText text;
 
-    public static SocialFragment newInstance() {
+    private Bitmap attachment;
+
+    private ISocialMediaDAO socialMediaDAO;
+
+    public static SocialFragment newInstance(ISocialMediaDAO database) {
         SocialFragment fragment = new SocialFragment();
+        fragment.setSocialMediaDAO(database);
         return fragment;
+    }
+
+    public ISocialMediaDAO getSocialMediaDAO() {
+        return socialMediaDAO;
+    }
+
+    public void setSocialMediaDAO(ISocialMediaDAO socialMediaDAO) {
+        this.socialMediaDAO = socialMediaDAO;
     }
 
     @Override
@@ -75,6 +103,9 @@ public class SocialFragment extends Fragment{
         this.postButton = (Button) view.findViewById(R.id.post_button);
         assert(this.postButton != null);
 
+        this.text = (EditText)view.findViewById(R.id.text);
+        assert(this.text != null);
+
         this.cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,13 +123,18 @@ public class SocialFragment extends Fragment{
                 imageView.setMaxHeight(1);
                 imageView.setMinimumHeight(1);
                 cancelButton.setImageResource(0);
+                attachment = null;
             }
         });
 
         this.attachmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageView.setImageResource(R.drawable.example_ski_picture);
+                Intent intent  = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), GALLERY_PICTURE_REQUEST);
+
                 cancelButton.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
             }
         });
@@ -106,10 +142,44 @@ public class SocialFragment extends Fragment{
         this.postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SocialMediaPostDTO socialMediaPost = new SocialMediaPostDTO();
+                socialMediaPost.setGeoLocation(DEBUGING_EXAMPLE_LOCATION);
+                socialMediaPost.setText(text.getText() + "");
+
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                socialMediaPost.setTimestamp(format.format(new Date()));
+
+                SocialMediaFeedback facebook = new SocialMediaFeedback("Facebook", "likes");
+                socialMediaPost.addFeedback(facebook);
+                SocialMediaFeedback twitter = new SocialMediaFeedback("Twitter", "retweets");
+                socialMediaPost.addFeedback(twitter);
+
+                if(attachment != null){
+                    String path = saveImage(attachment);
+
+                    if(path == null){
+                        Log.wtf("SocialFragment", "Image Saving Failed");
+                    }
+
+                    SocialMediaFeedback instagram = new SocialMediaFeedback("Instagram", "likes");
+                    socialMediaPost.addFeedback(instagram);
+
+                    SocialMediaAttachment attachment = new SocialMediaAttachment();
+                    attachment.setMimeType(attachment.getMimeType());
+                    attachment.setReference(path);
+                    socialMediaPost.setSocialMediaAttachment(attachment);
+                }
+
+                socialMediaDAO.addSocialMediaPost(socialMediaPost);
+
+
                 imageView.setImageResource(0);
                 cancelButton.setImageResource(0);
+
                 Toast.makeText(getActivity(), "Successfully Posted!",
                         Toast.LENGTH_SHORT).show();
+
+                getActivity().getSupportFragmentManager().popBackStackImmediate();
             }
         });
     }
@@ -118,10 +188,58 @@ public class SocialFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CAMERA_PICTURE_REQUEST && resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
-            Bitmap image = (Bitmap)extras.get("data");
-            imageView.setImageBitmap(image);
+            attachment = (Bitmap)extras.get("data");
+            imageView.setImageBitmap(attachment);
             imageView.setMinimumHeight(600);
             cancelButton.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+        }else if(requestCode == GALLERY_PICTURE_REQUEST && resultCode == RESULT_OK){
+            Uri uri = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
+                imageView.setImageBitmap(bitmap);
+                attachment = bitmap;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
+    }
+
+    private String saveImage(Bitmap image){
+        File file = getFileForStorage();
+        if(file == null){
+            Log.wtf("SocialFragment", "No file given to store bitmap!");
+            return null;
+        }
+
+        try {
+            FileOutputStream stream = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.PNG, 90, stream);
+            stream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file.getAbsolutePath();
+    }
+
+    private File getFileForStorage(){
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/");
+
+        if(!file.exists()){
+            if(!file.mkdirs())
+                Log.wtf("SocialFragment", "UNABLE TO CREATE DIRECTORIES AND FILE");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String name = LocalDateTime.now().toString();
+        file = new File(file.getAbsolutePath(), name);
+        return file;
     }
 }
