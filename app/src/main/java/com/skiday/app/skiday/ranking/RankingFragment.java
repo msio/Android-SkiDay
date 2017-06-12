@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.model.MeantimeResultLine;
 import com.skiday.app.skiday.model.PersonResult;
 import com.skiday.app.skiday.model.Results;
-import com.skiday.app.skiday.timeline.EventDetails;
 
 
 /**
