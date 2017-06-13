@@ -1,9 +1,10 @@
 package com.skiday.app.skiday.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SocialMediaPostDTO {
+public class SocialMediaPostDTO implements Serializable{
     private String text;
     private String timestamp;
     private String geoLocation;

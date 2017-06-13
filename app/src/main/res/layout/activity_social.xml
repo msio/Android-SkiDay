@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:srcCompat="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <GridLayout
+        android:id="@+id/button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageButton
+            android:id="@+id/camera_button"
+            android:layout_width="50dp"
+
+            android:alpha="1"
+            android:layout_height="match_parent"
+            android:layout_column="22"
+            android:layout_row="0"
+            android:background="#00FFFFFF"
+            android:src="@drawable/camera_icon" />
+
+        <ImageButton
+            android:id="@+id/attach_button"
+            android:layout_width="50dp"
+
+            android:alpha="1"
+            android:layout_height="match_parent"
+            android:layout_column="21"
+            android:layout_row="0"
+            android:background="#00FFFFFF"
+            android:src="@drawable/attachment_icon" />
+    </GridLayout>
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/button_bar"
+
+        android:layout_weight="0.31"
+        android:ems="10"
+        android:hint="What's on your mind?"
+
+        android:inputType="text"
+        android:maxLines="1" />
+
+
+
+
+</RelativeLayout>

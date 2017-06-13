@@ -1,9 +1,8 @@
 package com.skiday.app.skiday.feedback;
 
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,20 +15,13 @@ import android.widget.LinearLayout;
 import com.skiday.app.skiday.MainActivity;
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.dao.ISocialMediaDAO;
-import com.skiday.app.skiday.dao.SocialMediaDAO;
-import com.skiday.app.skiday.dao.SocialMediaPostContract;
 import com.skiday.app.skiday.dto.SocialMediaAttachment;
 import com.skiday.app.skiday.dto.SocialMediaPostDTO;
-import com.skiday.app.skiday.social.SocialFragment;
-import com.skiday.app.skiday.social.views.AbstractSocialCardView;
+import com.skiday.app.skiday.social.SocialActivity;
 import com.skiday.app.skiday.social.views.SimpleSocialCardView;
 import com.skiday.app.skiday.social.views.SocialImageCardView;
 import com.skiday.app.skiday.social.views.SocialTextCardView;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
-
-import java.util.Collections;
 import java.util.List;
 
 public class FeedbackFragment extends Fragment implements View.OnClickListener{
@@ -91,7 +83,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener{
             }else{
                 SocialImageCardView imageCardView = new SocialImageCardView(getContext());
                 imageCardView.setImageByPath(attachment.getReference());
-                if(post.getGeoLocation().equals(SocialFragment.DEBUGING_EXAMPLE_LOCATION)){
+                if(post.getGeoLocation().equals(SocialActivity.DEBUGING_EXAMPLE_LOCATION)){
                     imageCardView.setGeolocation("Kitzbühl", R.drawable.aus);
                 }
                 imageCardView.setPostText(post.getText());
@@ -109,10 +101,8 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, SocialFragment.newInstance(this.socialMediaDAO)).addToBackStack("Feedback");
-        transaction.commit();
+        Intent intent = new Intent(getActivity(), SocialActivity.class);
+        startActivityForResult(intent,3);
     }
 
     @Override

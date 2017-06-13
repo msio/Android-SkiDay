@@ -9,11 +9,12 @@ import com.skiday.app.skiday.dto.SocialMediaAttachment;
 import com.skiday.app.skiday.dto.SocialMediaFeedback;
 import com.skiday.app.skiday.dto.SocialMediaPostDTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SocialMediaDAO implements ISocialMediaDAO{
+public class SocialMediaDAO implements ISocialMediaDAO,Serializable{
     private static final String RETRIEVE_ALL_POSTS_STATEMENT = "SELECT * FROM " + SocialMediaPostContract.SocialMediaPostEntry.TABLE_NAME;
     private static final String RETRIEVE_ATTACHMENT = "SELECT * FROM " + SocialMediaPostContract.PostAttachment.TABLE_NAME;
     private static final String RETRIEVE_FEEDBACK = "SELECT * FROM " + SocialMediaPostContract.PostFeedback.TABLE_NAME + " FEED INNER JOIN " + SocialMediaPostContract.SocialMediaService.TABLE_NAME + " MEDIA ON " +

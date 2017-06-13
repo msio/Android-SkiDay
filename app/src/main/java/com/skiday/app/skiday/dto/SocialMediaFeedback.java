@@ -1,6 +1,8 @@
 package com.skiday.app.skiday.dto;
 
-public class SocialMediaFeedback {
+import java.io.Serializable;
+
+public class SocialMediaFeedback implements Serializable{
     private String serviceName;
     private String feedbackStyle;
     private int feedbackAmount;

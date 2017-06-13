@@ -4,9 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class SocialMediaDatabase {
+public class SocialMediaDatabase implements Serializable{
     private SocialMediaDBHelper socialMediaDBHelper;
 
     private HashMap<String, Long> socialMediaServiceIDs;

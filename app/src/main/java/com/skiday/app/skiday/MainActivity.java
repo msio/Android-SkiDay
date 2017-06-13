@@ -23,19 +23,19 @@ import com.skiday.app.skiday.constants.NavigationTab;
 import com.skiday.app.skiday.dao.ISocialMediaDAO;
 import com.skiday.app.skiday.dao.SocialMediaDAO;
 import com.skiday.app.skiday.dao.SocialMediaDatabase;
+import com.skiday.app.skiday.dto.SocialMediaPostDTO;
 import com.skiday.app.skiday.feedback.FeedbackFragment;
 import com.skiday.app.skiday.login.LoginActivity;
 import com.skiday.app.skiday.model.Results;
 import com.skiday.app.skiday.ranking.RankDetails;
+import com.skiday.app.skiday.ranking.RankDetailsFragment;
 import com.skiday.app.skiday.ranking.RankingFragment;
 import com.skiday.app.skiday.settings.SettingsActivity;
-import com.skiday.app.skiday.social.SocialFragment;
 import com.skiday.app.skiday.timeline.TimelineFragment;
 
 import java.lang.reflect.Field;
-import java.util.jar.Manifest;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static int ownId = 1; // Marcel Hirscher is the current user
@@ -50,13 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
 
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_live);
-        fab.setOnClickListener(this);
-        fab.hide(); //TODO: KILL ME
 
         database = new SocialMediaDatabase(this);
         socialMediaDAO = new SocialMediaDAO(database);
@@ -80,6 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (navigationTab == NavigationTab.TIMELINE) {
             transaction.replace(R.id.content, TimelineFragment.newInstance());
             navigation.setSelectedItemId(R.id.menu_timeline);
+        } else if (navigationTab == NavigationTab.FEEDBACK) {
+            transaction.replace(R.id.content, FeedbackFragment.newInstance(socialMediaDAO));
+            navigation.setSelectedItemId(R.id.menu_social);
         }
         transaction.commit();
     }
@@ -125,9 +124,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     selectedFragment = FeedbackFragment.newInstance(socialMediaDAO);
                     break;
                 case R.id.menu_ranking:
-                    Log.i(TAG, "ranking selected");
                     selectedFragment = RankingFragment.newInstance();
                     break;
+                case R.id.menu_live:
+                    int count = Results.getResults().getPersons().size();
+
+                    int id = (int) (Math.random() * 10) % count;
+
+                    selectedFragment = RankDetailsFragment.newInstance(id, 2, true);
+                    break;
+
             }
             loadFragment(selectedFragment);
             return true;
@@ -188,21 +194,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return ownId;
     }
 
+
     @Override
-    public void onClick(View v) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 5) {
+            SocialMediaPostDTO newPost = (SocialMediaPostDTO) data.getSerializableExtra("newPost");
+            System.out.println(newPost.getText());
+            socialMediaDAO.addSocialMediaPost(newPost);
+        }
 
-        Log.i(TAG, "onClick: Fab clicked.");
-
-        int count = Results.getResults().getPersons().size();
-
-        int id = (int) (Math.random() * 10) % count;
-
-        Intent intent = new Intent(this, RankDetails.class);
-        intent.putExtra("rankId", id);
-        intent.putExtra("rankLapNumber", 2);
-        intent.putExtra("live", true);
-        startActivity(intent);
     }
+
 
     @Override
     protected void onDestroy() {

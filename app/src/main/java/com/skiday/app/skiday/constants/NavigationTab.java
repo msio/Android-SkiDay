@@ -5,5 +5,5 @@ package com.skiday.app.skiday.constants;
  */
 
 public enum NavigationTab {
-    TIMELINE, RANKING
+    TIMELINE, RANKING,FEEDBACK
 }

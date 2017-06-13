@@ -17,4 +17,9 @@
         android:title="@string/menu_social"
         android:icon="@drawable/ic_social" />
 
+    <item
+        android:id="@+id/menu_live"
+        android:title="@string/menu_live"
+        android:icon="@drawable/ic_live_tv_black_24dp" />
+
 </menu>

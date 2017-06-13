@@ -1,6 +1,8 @@
 package com.skiday.app.skiday.dto;
 
-public class SocialMediaAttachment {
+import java.io.Serializable;
+
+public class SocialMediaAttachment implements Serializable{
     private String mimeType;
     private String reference;
 

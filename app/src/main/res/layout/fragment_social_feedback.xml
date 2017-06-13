@@ -52,5 +52,5 @@
 
         android:layout_gravity="right|bottom"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@drawable/ic_add" />
 </FrameLayout>
