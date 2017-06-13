@@ -110,8 +110,8 @@ public class Results {
             }
         }
         MeantimeResult best = null, me = null;
-        int relBest;
-        int relMe;
+        int relBest = 0;
+        int relMe = 0;
 
         for(MeantimeResult result : meantimeResults){
             if(best == null || (best.getTime() > result.getTime())){
@@ -121,8 +121,11 @@ public class Results {
                 me = result;
         }
 
-        relBest = currentMeantimeResult.getTime() - best.getTime();
-        relMe = currentMeantimeResult.getTime() - me.getTime();
+        if (currentMeantimeResult != null && best != null)
+            relBest = currentMeantimeResult.getTime() - best.getTime();
+
+        if (currentMeantimeResult != null && me != null)
+            relMe = currentMeantimeResult.getTime() - me.getTime();
 
         MeantimeResultLine line = new MeantimeResultLine(currentMeantimeResult.getTime(), relBest, relMe, best.getTime(), me.getTime(), getPersons().get(best.getId()), getPersons().get(currentMeantimeResult.getId()));
 

@@ -38,6 +38,13 @@ public class RankDetailsFragment extends Fragment {
     MeantimeResultLine meanTime3;
     MeantimeResultLine meanTime4;
 
+    @Override
+    public void onDetach() {
+        Log.i(TAG, "onDetach: stop the clock");
+        timer.cancel();
+        super.onDetach();
+    }
+
     public static RankDetailsFragment newInstance(int id, int lapNumber, boolean live) {
         Log.i(TAG, "newInstance: "+id);
         RankDetailsFragment fragment = new RankDetailsFragment();
@@ -119,6 +126,8 @@ public class RankDetailsFragment extends Fragment {
 
         int time = 0, absBest = 0, relBest = 0, absMe = 0, relMe = 0;
 
+        Log.i(TAG, "fillMeantimeView: meantime: "+meanTime);
+
         switch (meanTime) {
             case 1:
                 time = R.id.rank_detail_m1_time;
@@ -150,7 +159,12 @@ public class RankDetailsFragment extends Fragment {
                 break;
         }
 
+        Log.i(TAG, "fillMeantimeView: "+time);
         TextView field = (TextView) view.findViewById(time);
+
+        if (field == null){
+            Log.e(TAG, "fillMeantimeView: field is null");
+        }
         field.setText(PersonResult.timeToString(result.getTime()));
 
         field = (TextView) view.findViewById(relBest);
@@ -171,6 +185,8 @@ public class RankDetailsFragment extends Fragment {
 
     }
 
+    public CountDownTimer timer;
+
     /**
      * Start live-move.
      *
@@ -188,7 +204,7 @@ public class RankDetailsFragment extends Fragment {
 
         currentTime = (TextView) view.findViewById (R.id.current_time);
 
-        CountDownTimer timer = new CountDownTimer(millis, 10) {
+        timer = new CountDownTimer(millis, 10) {
             boolean mt1 = false, mt2 = false, mt3 = false;
 
             @Override
