@@ -16,6 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
             android:text="3h ago"
             android:textSize="10dp" />
 
@@ -23,6 +25,8 @@
             android:id="@+id/post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_below="@id/timestamp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore " />
 
@@ -42,6 +46,7 @@
             android:id="@+id/feedback_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
             android:layout_below="@id/divider">
 
 

@@ -15,6 +15,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="5dp"
             android:src="@drawable/aus" />
 
 
@@ -24,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/flag"
+            android:layout_marginTop="3dp"
 
             android:layout_marginLeft="4dp"
             android:text="Kitzbühl"
@@ -34,6 +37,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="3dp"
             android:text="3h ago"
             android:textSize="10dp" />
 
@@ -62,6 +67,7 @@
             android:id="@+id/feedback_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_below="@id/divider">
 
 
@@ -127,6 +133,9 @@
             android:id="@+id/post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_below="@id/feedback_line"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore " />
 
