@@ -69,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("DETAILS " + savedInstanceState.getString("details"));
         }
 
+        getSupportActionBar().setLogo(R.mipmap.hirscher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (navigationTab == NavigationTab.RANKING) {
             transaction.replace(R.id.content, RankingFragment.newInstance());
