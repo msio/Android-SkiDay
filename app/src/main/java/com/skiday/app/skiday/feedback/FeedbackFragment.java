@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.skiday.app.skiday.MainActivity;
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.dao.ISocialMediaDAO;
 import com.skiday.app.skiday.dao.SocialMediaDAO;
@@ -53,6 +54,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Social");
     }
 
     @Override

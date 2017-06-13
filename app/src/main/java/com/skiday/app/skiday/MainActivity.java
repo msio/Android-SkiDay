@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
+            String actionbarTitle = "Skiday";
+
             switch (item.getItemId()) {
                 case R.id.menu_timeline:
                     selectedFragment = TimelineFragment.newInstance();

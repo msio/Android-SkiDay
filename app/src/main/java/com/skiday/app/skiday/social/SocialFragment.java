@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.skiday.app.skiday.MainActivity;
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.dao.ISocialMediaDAO;
 import com.skiday.app.skiday.dao.SocialMediaPostContract;
@@ -76,6 +77,7 @@ public class SocialFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Social");
     }
 
     @Override

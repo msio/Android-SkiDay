@@ -15,6 +15,7 @@ import android.widget.TabHost;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.skiday.app.skiday.MainActivity;
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.model.MeantimeResultLine;
 import com.skiday.app.skiday.model.PersonResult;
@@ -37,6 +38,7 @@ public class RankingFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Ranking");
     }
 
     @Override

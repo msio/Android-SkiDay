@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ExpandableListView;
 
+import com.skiday.app.skiday.MainActivity;
 import com.skiday.app.skiday.R;
 import com.skiday.app.skiday.constants.EventType;
 import com.skiday.app.skiday.constants.FilterType;
@@ -44,6 +45,8 @@ public class TimelineFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Timeline");
+
     }
 
     @Override

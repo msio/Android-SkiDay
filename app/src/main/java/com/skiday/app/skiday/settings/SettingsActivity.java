@@ -14,6 +14,8 @@ public class SettingsActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
         setContentView(R.layout.activity_settings);
 
+        getSupportActionBar().setTitle("Settings");
+
         getFragmentManager().beginTransaction()
                 .replace(R.id.fragment, new SettingsFragment())
                 .commit();
