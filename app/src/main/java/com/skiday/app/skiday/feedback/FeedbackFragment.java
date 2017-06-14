@@ -68,7 +68,8 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    private void loadSocialMediaPostsIntoView(){
+    public void loadSocialMediaPostsIntoView(){
+        System.out.println("DAO: "+this.getSocialMediaDAO());
         if(this.getSocialMediaDAO() == null)
             return;
 

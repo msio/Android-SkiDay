@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public static NavigationTab navigationTab = NavigationTab.TIMELINE;
     private ISocialMediaDAO socialMediaDAO;
     private SocialMediaDatabase database;
+    Fragment selectedFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
+
             String actionbarTitle = "Skiday";
 
             switch (item.getItemId()) {
@@ -202,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
             SocialMediaPostDTO newPost = (SocialMediaPostDTO) data.getSerializableExtra("newPost");
             System.out.println(newPost.getText());
             socialMediaDAO.addSocialMediaPost(newPost);
+            FeedbackFragment frag =  (FeedbackFragment)selectedFragment;
+            frag.loadSocialMediaPostsIntoView();
         }
 
     }
