@@ -28,6 +28,9 @@ public class RankDetailsFragment extends Fragment {
 
     private static final String TAG = "RankingDetailFragment";
 
+    private static final String ID = "ID";
+    private static final String LAP_NUMBER = "LAP_NUMBER";
+
     private int id;
     private int lapNumber;
     private Person person;
@@ -41,8 +44,20 @@ public class RankDetailsFragment extends Fragment {
     @Override
     public void onDetach() {
         Log.i(TAG, "onDetach: stop the clock");
-        timer.cancel();
+
+        if (timer != null) {
+            timer.cancel();
+        }
         super.onDetach();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Log.i(TAG, "onSaveInstanceState: ");
+
+        outState.putInt(ID, id);
+        outState.putInt(LAP_NUMBER, lapNumber);
+        super.onSaveInstanceState(outState);
     }
 
     public static RankDetailsFragment newInstance(int id, int lapNumber, boolean live) {
@@ -68,6 +83,15 @@ public class RankDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
+        Log.i(TAG, "onCreate: "+savedInstanceState);
+
+        if (savedInstanceState != null) {
+            id = savedInstanceState.getInt(ID);
+            lapNumber = savedInstanceState.getInt(LAP_NUMBER);
+        }
+
         ((MainActivity)getActivity()).getSupportActionBar().setTitle("Live");
     }
 
@@ -95,7 +119,13 @@ public class RankDetailsFragment extends Fragment {
         field = (TextView) view.findViewById (R.id.rank_detail_lap);
         field.setText(lapNumber + ". Lap");
 
+        Log.i(TAG, "onViewCreated: id: "+id+ " lapNumber: "+lapNumber + " name: "+person);
         MeantimeResultLine result3 = Results.getResults().getMeantimeResultLine(id, lapNumber, 4);
+
+        if (result3 == null){
+            Log.e(TAG, "onViewCreated: result3 is null!!");
+        }
+
         field = (TextView) view.findViewById (R.id.current_time);
         field.setText(PersonResult.timeToString(result3.getTime()));
 

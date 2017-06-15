@@ -109,6 +109,11 @@ public class Results {
                 currentMeantimeResult = result;
             }
         }
+
+        if (currentMeantimeResult == null){
+            Log.e(TAG, "getMeantimeResultLine: currentMeantimeResult is null! "+id + " lap: "+lapNumber + " meantimenumber: "+meantimeNumber);
+        }
+
         MeantimeResult best = null, me = null;
         int relBest = 0;
         int relMe = 0;
@@ -121,13 +126,24 @@ public class Results {
                 me = result;
         }
 
+        if (best == null){
+            Log.e(TAG, "getMeantimeResultLine: Best is null! ");
+            System.out.println(meantimeResults.size());
+        }
+
         if (currentMeantimeResult != null && best != null)
             relBest = currentMeantimeResult.getTime() - best.getTime();
 
         if (currentMeantimeResult != null && me != null)
             relMe = currentMeantimeResult.getTime() - me.getTime();
 
-        MeantimeResultLine line = new MeantimeResultLine(currentMeantimeResult.getTime(), relBest, relMe, best.getTime(), me.getTime(), getPersons().get(best.getId()), getPersons().get(currentMeantimeResult.getId()));
+
+
+        int absoluteTimeBest = best.getTime();
+        int absoluteTimeMe = me.getTime();
+        int absoluteTime = currentMeantimeResult.getTime();
+
+        MeantimeResultLine line = new MeantimeResultLine(absoluteTime, relBest, relMe, absoluteTimeBest, absoluteTimeMe, getPersons().get(best.getId()), getPersons().get(currentMeantimeResult.getId()));
 
         return line;
     }

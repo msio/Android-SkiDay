@@ -55,6 +55,7 @@ public class RankDetails extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         MainActivity.navigationTab = NavigationTab.RANKING;
         setContentView(R.layout.rank_detail);
         Intent intent = getIntent();

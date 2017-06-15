@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     int count = Results.getResults().getPersons().size();
 
                     int id = (int) (Math.random() * 10) % count;
-
+                    Log.i(TAG, "onNavigationItemSelected: "+id);
                     selectedFragment = RankDetailsFragment.newInstance(id, 2, true);
                     break;
 
