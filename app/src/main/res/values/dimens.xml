@@ -218,10 +218,9 @@
     <dimen name="welcome_title_size">20sp</dimen>
 
 
-    <dimen name="details_label_text_size">16sp</dimen>
+    <dimen name="details_label_text_size">14sp</dimen>
     <dimen name="details_value_text_size">20sp</dimen>
     <dimen name="details_margin_top">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skiday.app.skiday.MainActivity;
@@ -38,14 +39,23 @@ public class EventDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_event_details);
         Intent intent = getIntent();
         Event event = (Event) intent.getSerializableExtra("event");
-
+        ImageView imageView = (ImageView) findViewById(R.id.event_details_icon);
+        if (event.getType() == EventType.LAP) {
+            imageView.setImageResource(R.drawable.ic_round);
+        } else if (event.getType() == EventType.SOCIAL) {
+            imageView.setImageResource(R.drawable.ic_social);
+        } else if (event.getType() == EventType.TRAINER) {
+            imageView.setImageResource(R.drawable.ic_trainer);
+        } else if (event.getType() == EventType.PRESS) {
+            imageView.setImageResource(R.drawable.ic_press);
+        }
         TextView desc = (TextView) findViewById(R.id.post);
         desc.setText(event.getDesc());
         TextView lapLabel = (TextView) findViewById(R.id.lapLabel);
         TextView lap = (TextView) findViewById(R.id.lap);
 
         if (event.getType() == EventType.LAP) {
-            lap.setText(""+event.getLap());
+            lap.setText("" + event.getLap());
         } else {
             lapLabel.setVisibility(View.GONE);
             lap.setVisibility(View.GONE);
