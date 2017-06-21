@@ -13,8 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     int count = Results.getResults().getPersons().size();
 
                     int id = (int) (Math.random() * 10) % count;
-                    Log.i(TAG, "onNavigationItemSelected: "+id);
+                    Log.i(TAG, "onNavigationItemSelected: " + id);
                     selectedFragment = RankDetailsFragment.newInstance(id, 2, true);
                     break;
 
@@ -203,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             SocialMediaPostDTO newPost = (SocialMediaPostDTO) data.getSerializableExtra("newPost");
             System.out.println(newPost.getText());
             socialMediaDAO.addSocialMediaPost(newPost);
-            FeedbackFragment frag =  (FeedbackFragment)selectedFragment;
+            FeedbackFragment frag = (FeedbackFragment) selectedFragment;
             frag.loadSocialMediaPostsIntoView();
         }
 
