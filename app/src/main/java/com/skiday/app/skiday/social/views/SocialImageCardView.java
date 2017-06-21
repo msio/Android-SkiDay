@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.skiday.app.skiday.R;
+import com.skiday.app.skiday.dto.SocialMediaAttachment;
 
 import java.io.File;
 
