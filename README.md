@@ -11,6 +11,7 @@ Ski Day is an app dedicated to professional skiers who have a very stressful day
 <img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498476067.png" width="300">
 <img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498066785.png" width="300">
 
-##Installation
+## Installation
 
-Clone it and open in android studio to run it 
+This is just prototype without any server connection behind.
+Clone it and open e.g. in Android Studio to run it 
