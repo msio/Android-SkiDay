@@ -6,10 +6,10 @@ Ski Day is an app dedicated to professional skiers who have a very stressful day
 
 ## Screenshots
 
-<img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498066721.png" width="300">
+<span><img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498066721.png" width="300">
 <img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498051621.png" width="300">
 <img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498476067.png" width="300">
-<img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498066785.png" width="300">
+<img src="https://github.com/msio777/Android-SkiDay/blob/master/screens/Screenshot_1498066785.png" width="300"></span>
 
 ## Installation
 
